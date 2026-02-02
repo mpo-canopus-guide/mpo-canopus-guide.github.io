@@ -1265,88 +1265,88 @@
         </section>
 
         <section id="checklist">
-            <h2>12. Quick Reference Checklist</h2>
-            <p>Use this checklist to ensure you've completed all critical steps:</p>
+    <h2>12. Quick Reference Checklist</h2>
+    <p>Use this checklist to ensure you've completed all critical steps:</p>
 
-            <div class="checklist">
-                <h3>12.1 Pre-Processing Phase</h3>
-                <ul>
-                    <li>Images calibrated (bias/dark/flat applied)</li>
-                    <li>FWHM measured (all images within 20%)</li>
-                    <li>Saturation checked (target and comp stars &lt;60k ADU)</li>
-                    <li>Trailed or defective images removed</li>
-                    <li>Minimum 40–50 images available</li>
-                    <li>Files organized in dedicated folder</li>
-                </ul>
+    <div class="checklist">
+        <h3>12.1 Pre-Processing Phase</h3>
+        <ul class="interactive-list">
+            <li><label><input type="checkbox"> Images calibrated (bias/dark/flat applied)</label></li>
+            <li><label><input type="checkbox"> FWHM measured (all images within 20%)</label></li>
+            <li><label><input type="checkbox"> Saturation checked (target and comp stars &lt;60k ADU)</label></li>
+            <li><label><input type="checkbox"> Trailed or defective images removed</label></li>
+            <li><label><input type="checkbox"> Minimum 40–50 images available</label></li>
+            <li><label><input type="checkbox"> Files organized in dedicated folder</label></li>
+        </ul>
 
-                <h3>12.2 Software Setup Phase</h3>
-                <ul>
-                    <li>Correct equipment profile selected</li>
-                    <li>Images loaded successfully</li>
-                    <li>Aperture radius set to 2× FWHM</li>
-                    <li>Sky annulus parameters configured</li>
-                    <li>Aperture visually verified on test star</li>
-                </ul>
+        <h3>12.2 Software Setup Phase</h3>
+        <ul class="interactive-list">
+            <li><label><input type="checkbox"> Correct equipment profile selected</label></li>
+            <li><label><input type="checkbox"> Images loaded successfully</label></li>
+            <li><label><input type="checkbox"> Aperture radius set to 2× FWHM</label></li>
+            <li><label><input type="checkbox"> Sky annulus parameters configured</label></li>
+            <li><label><input type="checkbox"> Aperture visually verified on test star</label></li>
+        </ul>
 
-                <h3>12.3 Target Selection Phase</h3>
-                <ul>
-                    <li>Asteroid identified and clicked in first image</li>
-                    <li>Asteroid identified and clicked in last image</li>
-                    <li>Motion vector appears reasonable</li>
-                    <li>Session name entered (descriptive)</li>
-                    <li>Object number/name matches MPC database</li>
-                    <li>Filter correctly specified</li>
-                    <li>Observer code entered (if applicable)</li>
-                    <li>HJD time format selected</li>
-                </ul>
+        <h3>12.3 Target Selection Phase</h3>
+        <ul class="interactive-list">
+            <li><label><input type="checkbox"> Asteroid identified and clicked in first image</label></li>
+            <li><label><input type="checkbox"> Asteroid identified and clicked in last image</label></li>
+            <li><label><input type="checkbox"> Motion vector appears reasonable</label></li>
+            <li><label><input type="checkbox"> Session name entered (descriptive)</label></li>
+            <li><label><input type="checkbox"> Object number/name matches MPC database</label></li>
+            <li><label><input type="checkbox"> Filter correctly specified</label></li>
+            <li><label><input type="checkbox"> Observer code entered (if applicable)</label></li>
+            <li><label><input type="checkbox"> HJD time format selected</label></li>
+        </ul>
 
-                <h3>12.4 Comparison Star Phase</h3>
-                <ul>
-                    <li>3–5 comp stars selected</li>
-                    <li>All comp stars non-saturated</li>
-                    <li>Comp stars similar brightness to asteroid</li>
-                    <li>Comp stars checked against VSX (no known variables)</li>
-                    <li>Comp stars spatially distributed</li>
-                    <li>Comp stars not in asteroid's path</li>
-                    <li>Catalog magnitudes entered (if calibrated photometry desired)</li>
-                </ul>
+        <h3>12.4 Comparison Star Phase</h3>
+        <ul class="interactive-list">
+            <li><label><input type="checkbox"> 3–5 comp stars selected</label></li>
+            <li><label><input type="checkbox"> All comp stars non-saturated</label></li>
+            <li><label><input type="checkbox"> Comp stars similar brightness to asteroid</label></li>
+            <li><label><input type="checkbox"> Comp stars checked against VSX (no known variables)</label></li>
+            <li><label><input type="checkbox"> Comp stars spatially distributed</label></li>
+            <li><label><input type="checkbox"> Comp stars not in asteroid's path</label></li>
+            <li><label><input type="checkbox"> Catalog magnitudes entered (if calibrated photometry desired)</label></li>
+        </ul>
 
-                <h3>12.5 Measurement Phase</h3>
-                <ul>
-                    <li>Measurement started</li>
-                    <li>Asteroid tracking verified visually</li>
-                    <li>No error messages during processing</li>
-                    <li>Measurement completed successfully</li>
-                    <li>Session saved to database</li>
-                </ul>
+        <h3>12.5 Measurement Phase</h3>
+        <ul class="interactive-list">
+            <li><label><input type="checkbox"> Measurement started</label></li>
+            <li><label><input type="checkbox"> Asteroid tracking verified visually</label></li>
+            <li><label><input type="checkbox"> No error messages during processing</label></li>
+            <li><label><input type="checkbox"> Measurement completed successfully</label></li>
+            <li><label><input type="checkbox"> Session saved to database</label></li>
+        </ul>
 
-                <h3>12.6 Analysis Phase</h3>
-                <ul>
-                    <li>Session loaded in Lightcurve Analysis</li>
-                    <li>Coarse period search completed (2–20 hr range)</li>
-                    <li>Candidate period(s) identified</li>
-                    <li>Fine period search performed</li>
-                    <li>Optimal Fourier order determined (typically 2–4)</li>
-                    <li>Phased lightcurve inspected for quality</li>
-                    <li>Double-peaked structure observed (typical)</li>
-                    <li>Amplitude in reasonable range (0.1–1.0 mag)</li>
-                    <li>Aliasing checked (period not near 24h, 12h, etc.)</li>
-                    <li>Data scatter consistent with error bars</li>
-                </ul>
+        <h3>12.6 Analysis Phase</h3>
+        <ul class="interactive-list">
+            <li><label><input type="checkbox"> Session loaded in Lightcurve Analysis</label></li>
+            <li><label><input type="checkbox"> Coarse period search completed (2–20 hr range)</label></li>
+            <li><label><input type="checkbox"> Candidate period(s) identified</label></li>
+            <li><label><input type="checkbox"> Fine period search performed</label></li>
+            <li><label><input type="checkbox"> Optimal Fourier order determined (typically 2–4)</label></li>
+            <li><label><input type="checkbox"> Phased lightcurve inspected for quality</label></li>
+            <li><label><input type="checkbox"> Double-peaked structure observed (typical)</label></li>
+            <li><label><input type="checkbox"> Amplitude in reasonable range (0.1–1.0 mag)</label></li>
+            <li><label><input type="checkbox"> Aliasing checked (period not near 24h, 12h, etc.)</label></li>
+            <li><label><input type="checkbox"> Data scatter consistent with error bars</label></li>
+        </ul>
 
-                <h3>12.7 Export & Reporting Phase</h3>
-                <ul>
-                    <li>Lightcurve plot exported (PNG/PDF)</li>
-                    <li>Period spectrum saved</li>
-                    <li>Data table exported (CSV/TXT)</li>
-                    <li>ALCDEF file generated</li>
-                    <li>ALCDEF metadata verified complete</li>
-                    <li>Period and uncertainty documented</li>
-                    <li>Amplitude documented</li>
-                    <li>Publication checklist items prepared</li>
-                </ul>
-            </div>
-        </section>
+        <h3>12.7 Export & Reporting Phase</h3>
+        <ul class="interactive-list">
+            <li><label><input type="checkbox"> Lightcurve plot exported (PNG/PDF)</label></li>
+            <li><label><input type="checkbox"> Period spectrum saved</label></li>
+            <li><label><input type="checkbox"> Data table exported (CSV/TXT)</label></li>
+            <li><label><input type="checkbox"> ALCDEF file generated</label></li>
+            <li><label><input type="checkbox"> ALCDEF metadata verified complete</label></li>
+            <li><label><input type="checkbox"> Period and uncertainty documented</label></li>
+            <li><label><input type="checkbox"> Amplitude documented</label></li>
+            <li><label><input type="checkbox"> Publication checklist items prepared</label></li>
+        </ul>
+    </div>
+</section>
 
         <section id="resources">
             <h2>13. Additional Resources</h2>
