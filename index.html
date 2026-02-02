@@ -1387,6 +1387,39 @@
             <p style="margin-top: 10px;">Community-created guide • Not affiliated with MPO Software • Last updated February 2, 2026</p>
             <p style="margin-top: 10px;"><em>Clear skies!</em></p>
         </footer>
-    </div>
+</div> <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Find all checkboxes inside interactive lists
+            const checkboxes = document.querySelectorAll('.interactive-list input[type="checkbox"]');
+            
+            checkboxes.forEach((box, index) => {
+                // 1. Create a unique ID for each box based on its order in the guide
+                const storageId = 'mpo_guide_checkbox_' + index;
+                
+                // 2. Load saved state from browser memory
+                const savedState = localStorage.getItem(storageId);
+                if (savedState === 'true') {
+                    box.checked = true;
+                    box.closest('li').style.textDecoration = 'line-through';
+                    box.closest('li').style.opacity = '0.5';
+                }
+                
+                // 3. Listen for clicks
+                box.addEventListener('change', () => {
+                    // Save the new state (true/false)
+                    localStorage.setItem(storageId, box.checked);
+                    
+                    // Toggle visual style
+                    if (box.checked) {
+                        box.closest('li').style.textDecoration = 'line-through';
+                        box.closest('li').style.opacity = '0.5';
+                    } else {
+                        box.closest('li').style.textDecoration = 'none';
+                        box.closest('li').style.opacity = '1';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
