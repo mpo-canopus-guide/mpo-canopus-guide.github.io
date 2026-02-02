@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPO Canopus v12 Workflow Guide</title>
+    <meta name="description" content="Complete guide to asteroid lightcurve analysis using MPO Canopus Version 12">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #2c3e50;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+        
+        .last-updated {
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h3 {
+            color: #34495e;
+            font-size: 1.4em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        h4 {
+            color: #34495e;
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning strong {
+            color: #856404;
+        }
+        
+        .tip {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .tip strong {
+            color: #0c5460;
+        }
+        
+        .note {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .note strong {
+            color: #014361;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        
+        table th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .toc h2 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 8px;
+        }
+        
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .downloads {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .downloads a {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+            font-weight: 600;
+        }
+        
+        .downloads a:hover {
+            background: #229954;
+        }
+        
+        .checklist {
+            background: #fff;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .checklist li {
+            list-style: none;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            color: #3498db;
+        }
+        
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MPO Canopus v12 Workflow</h1>
+            <p class="subtitle">Complete Guide to Asteroid Lightcurve Analysis</p>
+            <p class="subtitle">From Raw FITS to Publication-Ready Results</p>
+            <p class="last-updated">Last Updated: February 2, 2026</p>
+        </header>
+
+        <section>
+            <h2>Abstract</h2>
+            <p>This comprehensive guide provides a step-by-step workflow for asteroid lightcurve photometry using MPO Canopus Version 12. It covers the complete pipeline from image loading and quality assessment through photometric measurement, period analysis, and ALCDEF export. Special emphasis is placed on data quality control, photometric accuracy, and troubleshooting common issues.</p>
+        </section>
+
+        <div class="downloads">
+            <h3>Downloads</h3>
+            <a href="MPO_Canopus_Guide.pdf">📥 Download PDF Version</a>
+        </div>
+
+        <div class="toc">
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#phase0">2. Phase 0: Prerequisites & Image Quality Assessment</a></li>
+                <li><a href="#phase1">3. Phase 1: Setup & Image Loading</a></li>
+                <li><a href="#phase2">4. Phase 2: Aperture & Photometry Configuration</a></li>
+                <li><a href="#phase3">5. Phase 3: Target & Comparison Star Selection</a></li>
+                <li><a href="#phase4">6. Phase 4: Photometric Measurement</a></li>
+                <li><a href="#phase5">7. Phase 5: Period Analysis with FALC</a></li>
+                <li><a href="#phase6">8. Phase 6: Data Export & Reporting</a></li>
+                <li><a href="#troubleshooting">9. Troubleshooting Common Issues</a></li>
+                <li><a href="#advanced">10. Advanced Topics</a></li>
+                <li><a href="#glossary">11. Glossary</a></li>
+                <li><a href="#checklist">12. Quick Reference Checklist</a></li>
+                <li><a href="#resources">13. Additional Resources</a></li>
+            </ul>
+        </div>
+
+        <section id="introduction">
+            <h2>1. Introduction</h2>
+            <p>MPO Canopus v12 is a specialized software package for asteroid photometry and lightcurve analysis. This guide assumes you have:</p>
+            <ul>
+                <li>Basic familiarity with astronomical imaging and FITS file format</li>
+                <li>Calibrated images (bias/dark/flat corrected)</li>
+                <li>A basic understanding of differential photometry principles</li>
+            </ul>
+
+            <h3>1.1 Workflow Overview</h3>
+            <p>The complete workflow consists of six main phases:</p>
+            <ol>
+                <li><strong>Prerequisites & Quality Control</strong> — Validate image quality</li>
+                <li><strong>Setup & Image Loading</strong> — Configure software and import data</li>
+                <li><strong>Aperture Configuration</strong> — Set photometric parameters</li>
+                <li><strong>Target & Star Selection</strong> — Identify asteroid and comparison stars</li>
+                <li><strong>Measurement</strong> — Execute photometry</li>
+                <li><strong>Analysis & Export</strong> — Determine period and generate outputs</li>
+            </ol>
+        </section>
+
+        <section id="phase0">
+            <h2>2. Phase 0: Prerequisites & Image Quality Assessment</h2>
+            
+            <div class="warning">
+                <strong>WARNING:</strong> Poor quality images will produce unreliable lightcurves regardless of analysis technique. Always perform quality checks before loading data into Canopus.
+            </div>
+
+            <h3>2.1 Required Image Preparation</h3>
+            
+            <h4>Calibration</h4>
+            <p>All images must be calibrated with appropriate bias/dark and flat frames. While Canopus can perform calibration, the standard v12 workflow assumes pre-calibrated data.</p>
+
+            <h4>Plate Solving</h4>
+            <p>WCS (World Coordinate System) headers are highly recommended. Plate-solved images enable:</p>
+            <ul>
+                <li>Automatic catalog star identification</li>
+                <li>Accurate coordinate transformations</li>
+                <li>Faster processing</li>
+                <li>HJD or BJD corrections</li>
+            </ul>
+
+            <h4>File Organization</h4>
+            <p>Store all images for a single observing session in one dedicated folder with consistent naming convention.</p>
+
+            <h3>2.2 Critical Quality Checks</h3>
+            <p>Examine your images carefully before beginning photometry:</p>
+
+            <div class="tip">
+                <strong>PRO TIP:</strong> Use DS9, MaxIm DL, or similar software to batch-check FWHM and saturation levels before importing to Canopus. This saves time and prevents wasted processing effort.
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Check</th>
+                        <th>What to Look For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Star Shape</strong></td>
+                        <td>Stars should be circular. Elongation or trailing indicates tracking errors. <em>Action:</em> Remove trailed images.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Saturation</strong></td>
+                        <td>Check histogram and peak pixel values. Target and comparison stars must be below saturation threshold (typically &lt;60,000 ADU for 16-bit, &lt;4,000 for 12-bit). <em>Action:</em> Exclude saturated frames.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FWHM</strong></td>
+                        <td>Full Width Half Maximum should be consistent across the session (±20%). Large variations suggest focus drift or changing seeing. <em>Action:</em> Note FWHM for aperture sizing; consider excluding outliers.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Background</strong></td>
+                        <td>Sky background should be relatively uniform without significant gradients. <em>Action:</em> Check flat field quality if gradients present.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Image Count</strong></td>
+                        <td>Minimum 40–50 images recommended for robust period determination. More is better.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="phase1">
+            <h2>3. Phase 1: Setup & Image Loading</h2>
+
+            <h3>3.1 Launching the Asteroid Wizard</h3>
+            <ol>
+                <li>Launch MPO Canopus v12</li>
+                <li>Navigate to: <strong>Photometry → Multi-image Photometry → Asteroid Wizard</strong></li>
+                <li>The wizard interface replaces the older manual photometry workflow used in earlier Canopus versions</li>
+            </ol>
+
+            <h3>3.2 Profile Selection</h3>
+            <ol start="4">
+                <li>When prompted, select the equipment profile matching your telescope and camera setup</li>
+                <li>If no profile exists: <strong>File → Configuration</strong> to create one</li>
+                <li>Profile stores critical parameters:
+                    <ul>
+                        <li>Telescope aperture and focal length</li>
+                        <li>Camera pixel size and gain</li>
+                        <li>Default aperture settings</li>
+                        <li>Observatory location (for HJD corrections)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>3.3 Loading Images</h3>
+            <ol start="7">
+                <li>Click the <strong>Select Images</strong> tab</li>
+                <li>Click <strong>Folder</strong> and navigate to your FITS directory</li>
+                <li>Select all files (Ctrl+A or Cmd+A)</li>
+                <li>Configure display options:
+                    <ul>
+                        <li><strong>Review:</strong> Set to "No" for faster loading if you've pre-validated images</li>
+                        <li><strong>Scaling:</strong> "Auto" or "Compressed" to visualize faint stars</li>
+                    </ul>
+                </li>
+                <li>Click <strong>Load</strong></li>
+            </ol>
+
+            <div class="note">
+                <strong>NOTE:</strong> Canopus will read FITS headers to extract observation time, exposure duration, and coordinates. Verify that times are correctly extracted (check the image list for JD values).
+            </div>
+        </section>
+
+        <section id="phase2">
+            <h2>4. Phase 2: Aperture & Photometry Configuration</h2>
+
+            <div class="warning">
+                <strong>WARNING:</strong> Aperture sizing is the single most important parameter affecting photometric accuracy. Inappropriate apertures are a leading cause of noisy lightcurves.
+            </div>
+
+            <h3>4.1 Understanding Aperture Photometry</h3>
+            <p>Canopus uses aperture photometry with three concentric regions:</p>
+            <ol>
+                <li><strong>Measuring Aperture</strong> — Circular region centered on the star, capturing stellar flux</li>
+                <li><strong>Gap</strong> — Separation zone to avoid contamination</li>
+                <li><strong>Sky Annulus</strong> — Ring region for background measurement (defined by inner and outer radii)</li>
+            </ol>
+
+            <h3>4.2 Setting Aperture Parameters</h3>
+            <p>Access via: <strong>Configuration → Photometry Settings</strong> or directly in the wizard.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Aperture Radius</strong></td>
+                        <td>1.5–2.5× FWHM</td>
+                        <td>Example: FWHM = 3 px → radius 5–7 px</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gap</strong></td>
+                        <td>2–5 pixels</td>
+                        <td>Prevents star wings contaminating sky</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sky Inner Radius</strong></td>
+                        <td>r<sub>ap</sub> + gap</td>
+                        <td>Begin sky annulus outside gap</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sky Outer Radius</strong></td>
+                        <td>r<sub>inner</sub> + 10–20 px</td>
+                        <td>Sufficient area for robust statistics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sky Algorithm</strong></td>
+                        <td>Median</td>
+                        <td>Robust against cosmic rays & hot pixels. Alternative: Mode for crowded fields</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>4.3 The Goldilocks Zone: Optimal Aperture Sizing</h3>
+            <p>Choosing the correct aperture size is critical. Here's what happens with different choices:</p>
+            <ul>
+                <li><strong>Too Small (r &lt; 1.5×FWHM):</strong> Missing flux from star wings → systematic errors, especially in varying seeing</li>
+                <li><strong>Optimal (r = 1.5–2.5×FWHM):</strong> Captures &gt;95% of star flux while minimizing sky noise</li>
+                <li><strong>Too Large (r &gt; 3×FWHM):</strong> Excessive sky noise dominates → poor signal-to-noise ratio</li>
+            </ul>
+
+            <div class="tip">
+                <strong>PRO TIP - How to determine FWHM:</strong>
+                <ol>
+                    <li>Use Canopus's built-in star profile tool on several non-saturated stars</li>
+                    <li>Average the FWHM measurements</li>
+                    <li>Round up to nearest pixel for aperture calculation</li>
+                    <li>If FWHM varies significantly (&gt;20%), use the median value</li>
+                </ol>
+            </div>
+
+            <h3>4.4 Visual Verification</h3>
+            <ol>
+                <li>Use the <strong>Aperture Tool</strong> to display apertures overlaid on an image</li>
+                <li>Select a bright (but non-saturated) star</li>
+                <li>Verify:
+                    <ul>
+                        <li>Measuring aperture contains all visible star flux</li>
+                        <li>Sky annulus is free from nearby stars</li>
+                        <li>Gap prevents star wings from entering sky region</li>
+                    </ul>
+                </li>
+                <li>Examine the radial profile plot if available</li>
+            </ol>
+        </section>
+
+        <section id="phase3">
+            <h2>5. Phase 3: Target & Comparison Star Selection</h2>
+
+            <h3>5.1 Locating the Asteroid</h3>
+            <ol>
+                <li>The wizard displays the first image in your sequence</li>
+                <li>Locate the asteroid. If difficult to find:
+                    <ul>
+                        <li>Use the <strong>Blink</strong> tool to animate frames</li>
+                        <li>The moving object is the asteroid; background stars remain stationary</li>
+                    </ul>
+                </li>
+                <li>Click on the asteroid — a red circle appears</li>
+                <li>When prompted, locate and click the asteroid in the last image</li>
+                <li>Canopus calculates the motion vector and predicts positions for all intermediate frames</li>
+            </ol>
+
+            <div class="warning">
+                <strong>WARNING:</strong> If your observing session spans many hours, asteroid motion may be curved (not linear). For sessions &gt;6–8 hours, consider breaking the data into shorter blocks and combining lightcurves later.
+            </div>
+
+            <h3>5.2 Session Metadata Entry</h3>
+            <p>Accurate metadata is essential for ALCDEF export and scientific validity.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Requirement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Session Name</strong></td>
+                        <td>Descriptive identifier (e.g., "MP1234 20231031")</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Object Number/Name</strong></td>
+                        <td>Must match MPC designation exactly for catalog lookups</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Filter</strong></td>
+                        <td>Accurate filter identification (V, R, I, Clear, etc.) affects magnitude calibration</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Observer Code</strong></td>
+                        <td>Your MPC observatory code (if assigned)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Exposure Time</strong></td>
+                        <td>Usually auto-extracted from FITS headers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time Format</strong></td>
+                        <td>HJD (Heliocentric Julian Date) recommended. Canopus can convert JD → HJD if object coordinates are known</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="note">
+                <strong>Why HJD?</strong> Earth's orbital motion introduces timing variations up to ±8 minutes. HJD corrects for this, ensuring accurate period determination when combining data from multiple observing runs.
+            </div>
+
+            <h3>5.3 Comparison Star Selection</h3>
+            <p>Canopus will automatically identify candidate comparison stars (marked with green or blue circles).</p>
+
+            <h4>Selection Criteria</h4>
+            <p>Choose 3–5 comparison stars based on:</p>
+            <ol>
+                <li><strong>Brightness Match:</strong>
+                    <ul>
+                        <li>Similar magnitude to the asteroid (within ±2 mag ideally)</li>
+                        <li>Ensures comparable signal-to-noise ratio</li>
+                    </ul>
+                </li>
+                <li><strong>Non-Saturation:</strong>
+                    <ul>
+                        <li>Inspect star profiles — reject any with flat-topped peaks</li>
+                        <li>Check pixel values if uncertain</li>
+                    </ul>
+                </li>
+                <li><strong>Stability (Variable Star Check):</strong>
+                    <ul>
+                        <li>Cross-check against VSX (Variable Star Index) database</li>
+                        <li>Canopus can perform this check if catalog access is configured</li>
+                        <li>Avoid known variables at all costs</li>
+                    </ul>
+                </li>
+                <li><strong>Spatial Distribution:</strong>
+                    <ul>
+                        <li>Spread stars across the field of view</li>
+                        <li>Don't cluster all comparisons in one corner</li>
+                        <li>Helps average out field-dependent systematics (vignetting, etc.)</li>
+                    </ul>
+                </li>
+                <li><strong>Color Match (Advanced):</strong>
+                    <ul>
+                        <li>Ideally, select stars with similar spectral type to the asteroid</li>
+                        <li>Reduces differential extinction and filter transformation errors</li>
+                        <li>Often impractical; use similar brightness as primary criterion</li>
+                    </ul>
+                </li>
+                <li><strong>Path Avoidance:</strong>
+                    <ul>
+                        <li>Ensure comparison stars don't lie in the asteroid's predicted path</li>
+                        <li>Check motion vector overlay</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="tip">
+                <strong>Check Star Technique:</strong> Designate one comparison star as a "check star" and monitor its constancy relative to other comparisons during analysis. A stable check star validates your comparison ensemble.
+            </div>
+
+            <h3>5.4 Understanding Differential vs. Calibrated Photometry</h3>
+
+            <h4>Differential Photometry (Default)</h4>
+            <p>Canopus measures the asteroid's brightness relative to comparison stars. This produces:</p>
+            <ul>
+                <li>Instrumental magnitudes (arbitrary zero-point)</li>
+                <li>Excellent for period determination (only relative changes matter)</li>
+                <li>Cannot be directly compared to catalog values</li>
+            </ul>
+
+            <h4>Calibrated Photometry (Optional)</h4>
+            <p>For standard magnitudes:</p>
+            <ol>
+                <li>Obtain catalog magnitudes for your comparison stars from:
+                    <ul>
+                        <li>AAVSO Photometric All-Sky Survey (APASS)</li>
+                        <li>Gaia DR3</li>
+                        <li>2MASS (for infrared)</li>
+                        <li>Pan-STARRS</li>
+                    </ul>
+                </li>
+                <li>Enter catalog magnitudes in: <strong>Session Manager → Comparison Stars</strong></li>
+                <li>Canopus will calculate calibrated target magnitudes</li>
+                <li>Results can be compared to predicted asteroid magnitudes</li>
+            </ol>
+
+            <div class="note">
+                <strong>NOTE:</strong> For most lightcurve work, differential photometry is sufficient. Calibration is necessary when reporting absolute magnitudes or combining data from different observatories.
+            </div>
+        </section>
+
+        <section id="phase4">
+            <h2>6. Phase 4: Photometric Measurement</h2>
+
+            <h3>6.1 Executing the Measurement</h3>
+            <ol>
+                <li>Verify all settings (apertures, comp stars, metadata)</li>
+                <li>Click the <strong>Measure</strong> button</li>
+                <li>Canopus will iterate through all FITS files, measuring:
+                    <ul>
+                        <li>Target asteroid at predicted positions</li>
+                        <li>All comparison stars at fixed positions</li>
+                        <li>Sky background in annuli</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>6.2 Monitoring the Process</h3>
+
+            <div class="warning">
+                <strong>Critical:</strong> Watch the measurement progress carefully. The red target aperture must accurately track the asteroid across all frames.
+            </div>
+
+            <p><strong>What to monitor:</strong></p>
+            <ul>
+                <li>Red aperture stays centered on the asteroid</li>
+                <li>No aperture overlaps (target and comp stars)</li>
+                <li>Progress bar advances smoothly</li>
+                <li>No error messages about saturated or failed measurements</li>
+            </ul>
+
+            <p><strong>If tracking fails:</strong></p>
+            <ol>
+                <li>Stop the measurement immediately (Escape or Stop button)</li>
+                <li>Return to target selection</li>
+                <li>Re-click asteroid in first/last frames more precisely</li>
+                <li>For long sessions, consider breaking into shorter blocks</li>
+            </ol>
+
+            <h4>Handling Non-Linear (Curved) Motion</h4>
+            <p>For sessions exceeding 6–8 hours, asteroid motion often becomes non-linear, causing the fixed-path tracking to fail.</p>
+            <ol>
+                <li><strong>Data Segmentation:</strong> Break the session into 3–4 hour "blocks"</li>
+                <li><strong>Measurement:</strong> Run the measurement wizard for the first block. Once complete, do not clear the session</li>
+                <li><strong>Stitching:</strong> Load the next block of images. MPO Canopus will treat these as a continuation. Re-center the target on the first frame of the new block; the software will calculate a new motion vector while preserving the photometric zero-point from the previous stars</li>
+            </ol>
+
+            <h3>6.3 Automatic Session Saving</h3>
+            <p>Upon completion, Canopus automatically saves:</p>
+            <ul>
+                <li>Photometric data to the MPO database (.MDB file)</li>
+                <li>Session parameters and metadata</li>
+                <li>Comparison star information</li>
+            </ul>
+            <p>Session name can be found in: <strong>Lightcurve Analysis → Sessions</strong></p>
+        </section>
+
+        <section id="phase5">
+            <h2>7. Phase 5: Period Analysis with FALC</h2>
+
+            <h3>7.1 Loading Data into Analysis Mode</h3>
+            <ol>
+                <li>Close the Photometry Wizard (if still open)</li>
+                <li>Navigate to: <strong>Lightcurve Analysis</strong> (toolbar icon or Analysis menu)</li>
+                <li>In the Analysis window:
+                    <ul>
+                        <li>Click <strong>Sessions</strong> (top-left panel)</li>
+                        <li>Check the box next to your session name</li>
+                        <li>Click <strong>Load</strong></li>
+                    </ul>
+                </li>
+                <li>Raw data points appear in the main graph (unphased, time-series plot)</li>
+            </ol>
+
+            <h3>7.2 Understanding FALC</h3>
+            <p>FALC (Fourier Analysis of Light Curves) determines the rotation period by:</p>
+            <ol>
+                <li>Testing a range of trial periods</li>
+                <li>For each period, folding the lightcurve (wrapping time onto phase 0.0–1.0)</li>
+                <li>Fitting a Fourier series to the phased data</li>
+                <li>Computing the RMS (Root Mean Square) residual</li>
+                <li>Identifying the period with minimum RMS as the best-fit rotation period</li>
+            </ol>
+
+            <h3>7.3 Period Search Strategy</h3>
+
+            <h4>Step 1: Coarse Search</h4>
+            <ol>
+                <li>Locate the FALC panel (typically right side of Analysis window)</li>
+                <li>Set search parameters:
+                    <ul>
+                        <li><strong>Start:</strong> Lower period bound (e.g., 2.0 hours)</li>
+                        <li><strong>Stop:</strong> Upper period bound (e.g., 20.0 hours)</li>
+                        <li><strong>Step:</strong> Coarse step size (e.g., 0.1 hours)</li>
+                        <li><strong>Order:</strong> Start with 2 or 3</li>
+                    </ul>
+                </li>
+                <li>Click <strong>Find Period</strong> or <strong>Search</strong></li>
+                <li>Examine the Period Spectrum (periodogram) that appears</li>
+            </ol>
+
+            <div class="tip">
+                <strong>Choosing the search range:</strong>
+                <ul>
+                    <li>Main-belt asteroids: typically 4–12 hours</li>
+                    <li>Near-Earth asteroids: can be 2–30+ hours</li>
+                    <li>If unsure, search 2–24 hours initially</li>
+                    <li>Very slow rotators (&gt;24 hr) may require multi-night data</li>
+                </ul>
+            </div>
+
+            <h4>Step 2: Identifying Candidate Periods</h4>
+            <p>The period spectrum shows RMS error vs. trial period:</p>
+            <ul>
+                <li>Deep minima (low RMS) indicate good period candidates</li>
+                <li>Multiple minima are common — requires further investigation</li>
+                <li>Lowest global minimum is the primary candidate</li>
+            </ul>
+
+            <p><strong>How to Distinguish True Periods from Aliases:</strong></p>
+            <ol>
+                <li><strong>True period:</strong> Deepest RMS minimum, produces clean double-peaked lightcurve</li>
+                <li><strong>Daily aliases (12h, 24h):</strong> Artifacts of observing cadence. Test by:
+                    <ul>
+                        <li>Adding data from different nights (breaks the 24h pattern)</li>
+                        <li>Checking if lightcurve morphology makes physical sense</li>
+                    </ul>
+                </li>
+                <li><strong>Harmonics (2×P, 3×P):</strong> Integer multiples of true period. Usually shallower minima</li>
+            </ol>
+
+            <h4>Step 3: Fine Search</h4>
+            <ol>
+                <li>Note the period(s) with lowest RMS from coarse search</li>
+                <li>Set a narrow search range around the best candidate:
+                    <ul>
+                        <li><strong>Start:</strong> Best period −0.5 hours</li>
+                        <li><strong>Stop:</strong> Best period +0.5 hours</li>
+                        <li><strong>Step:</strong> Fine step (0.01 or 0.001 hours)</li>
+                    </ul>
+                </li>
+                <li>Re-run FALC</li>
+                <li>The refined minimum gives your final period estimate</li>
+            </ol>
+
+            <h4>Step 4: Optimizing Fourier Order</h4>
+            <ol>
+                <li>With the best period selected, experiment with Fourier order:
+                    <ul>
+                        <li><strong>Order = 2:</strong> Double-peaked, sinusoidal lightcurve</li>
+                        <li><strong>Order = 3–4:</strong> Asymmetric or complex shapes</li>
+                        <li><strong>Order = 5+:</strong> May overfit noise (use cautiously)</li>
+                    </ul>
+                </li>
+                <li>Choose the minimum order that adequately represents the lightcurve shape</li>
+                <li>Higher orders reduce RMS but risk fitting noise rather than signal</li>
+            </ol>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>When to Use</th>
+                        <th>Physical Interpretation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>2</strong></td>
+                        <td>Default for most asteroids<br>• Clean double-peaked lightcurve<br>• RMS not improved by higher orders</td>
+                        <td>Symmetrical ellipsoidal shape<br>Two identical maxima/minima per rotation<br>Uniform surface albedo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>Moderate asymmetry<br>• One peak higher than the other<br>• Noticeable RMS improvement over Order 2</td>
+                        <td>Slight shape irregularity or albedo variation between hemispheres</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td>Significant asymmetry<br>• Complex multi-peaked structure<br>• Flat-bottomed minima<br>• Sharp peaks or shoulders</td>
+                        <td>Highly irregular shape (contact binary, elongated tumbler) OR mutual events in binary asteroid systems</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5–6</strong></td>
+                        <td>Rarely justified. Use only if:<br>• Very high SNR data (&gt;100 points)<br>• Obvious complex structure<br>• Order 4 clearly inadequate</td>
+                        <td>May indicate:<br>• Binary with partial eclipses<br>• Tumbling (non-principal axis rotation)<br>• Insufficient data coverage</td>
+                    </tr>
+                    <tr>
+                        <td><strong>7+</strong></td>
+                        <td>Almost never<br>Consult with experienced observers</td>
+                        <td>Likely fitting noise rather than signal<br>Requires expert interpretation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip">
+                <strong>Order Selection Strategy:</strong>
+                <ol>
+                    <li>Start with Order 2</li>
+                    <li>Increase to Order 3, check if RMS improves by &gt;10%</li>
+                    <li>If yes, try Order 4</li>
+                    <li>Stop when RMS improvement becomes marginal (&lt;5%)</li>
+                    <li>Visually inspect: does higher order actually fit structure, or just noise?</li>
+                </ol>
+            </div>
+
+            <div class="warning">
+                <strong>Overfitting Danger:</strong> High Fourier orders can fit random noise, producing artificially low RMS values. Always visually inspect whether higher orders genuinely improve the fit or just follow data scatter. A good test: if Order 6 looks significantly better than Order 4, you may have a genuine complex shape. If it only marginally reduces RMS, stick with the lower order.
+            </div>
+
+            <h3>7.4 Validation and Quality Checks</h3>
+
+            <h4>Aliasing Detection</h4>
+            <div class="warning">
+                <strong>Common Aliases:</strong> Periods near 24h, 12h, 8h, 6h may be artifacts of Earth's rotation (daily observing cadence). Be skeptical of these results.
+            </div>
+
+            <p><strong>How to check:</strong></p>
+            <ul>
+                <li>If your best period P ≈ 24 hours, test P/2 and 2P</li>
+                <li>Compare RMS and visual appearance of phased lightcurves</li>
+                <li>Multi-night observations break daily aliases</li>
+            </ul>
+
+            <div class="tip">
+                <strong>Breaking Aliases:</strong> The most reliable way to eliminate aliases is multi-night coverage with varying observing windows. If you observe from 20:00–02:00 on Night 1 and 23:00–05:00 on Night 2, a 24-hour alias will phase incorrectly, while the true period will phase all data coherently.
+            </div>
+
+            <h4>Lightcurve Morphology</h4>
+            <p>After phasing with the best period, assess the lightcurve:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Expected / Quality Indicator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Symmetry</strong></td>
+                        <td>Most asteroids show double-peaked lightcurves (two maxima and two minima per rotation) due to elongated shape</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amplitude</strong></td>
+                        <td>Typical range: 0.1–1.0 magnitudes. Amplitude relates to axial ratio. Spherical asteroids: &lt;0.1 mag. Highly elongated: &gt;0.5 mag.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scatter</strong></td>
+                        <td>Points should cluster tightly around the fitted curve. Large scatter indicates:<br>• Poor comp star selection<br>• Incorrect period<br>• Weather variability</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase Coverage</strong></td>
+                        <td>Ideally, data spans all phases (0.0–1.0). Gaps are acceptable but reduce confidence</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="note">
+                <strong>Single-peaked lightcurves:</strong> Uncommon but possible for pole-on viewing geometries or spherical objects with surface albedo variations. Verify period by testing P/2.
+            </div>
+
+            <h4>Statistical Indicators</h4>
+            <ul>
+                <li><strong>RMS (Root Mean Square):</strong> Measure of fit quality. Lower is better, but compare only within the same dataset</li>
+                <li><strong>Reduced χ²:</strong> If available, values near 1.0 indicate good fit. χ² ≫ 1 suggests underestimated errors or poor fit</li>
+                <li><strong>Error bars:</strong> Display measurement uncertainties. Scatter should be consistent with error bars</li>
+            </ul>
+
+            <h3>7.5 Period Uncertainty</h3>
+            <p>Canopus may report formal period uncertainty, but consider:</p>
+            <ul>
+                <li><strong>Statistical uncertainty:</strong> From the curvature of the RMS minimum</li>
+                <li><strong>Systematic uncertainty:</strong> From observing baseline</li>
+                <li>Longer time baseline → better period precision</li>
+                <li><strong>Rule of thumb:</strong> σ<sub>P</sub> ≈ P²/T where T is observing baseline</li>
+            </ul>
+
+            <div class="tip">
+                <strong>Reporting periods:</strong> Use appropriate significant figures based on uncertainty. For example:
+                <ul>
+                    <li>If P = 5.2347 hr with σ = 0.015 hr, report: <strong>P = 5.235 ± 0.015 hr</strong></li>
+                    <li>Don't over-report precision (e.g., 8 decimal places with 2-hour baseline)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="phase6">
+            <h2>8. Phase 6: Data Export & Reporting</h2>
+
+            <h3>8.1 Exporting the Lightcurve</h3>
+            <p>Canopus provides several export options:</p>
+
+            <h4>Lightcurve Plot</h4>
+            <p>Use <strong>Print/Export</strong> to save the phased lightcurve as:</p>
+            <ul>
+                <li>Image file (PNG, JPEG) for publications</li>
+                <li>PDF for reports</li>
+            </ul>
+
+            <h4>Data Tables</h4>
+            <p>Export raw photometry as:</p>
+            <ul>
+                <li>CSV or TXT for custom analysis</li>
+                <li>Includes: time (JD/HJD), magnitude, error, phase</li>
+            </ul>
+
+            <h4>Period Spectrum</h4>
+            <p>Save the RMS vs. period plot to document your period search</p>
+
+            <h3>8.2 ALCDEF Format</h3>
+
+            <h4>What is ALCDEF?</h4>
+            <p>ALCDEF (Asteroid Lightcurve Data Exchange Format) is the international standard for reporting asteroid photometry to the Minor Planet Center. It ensures:</p>
+            <ul>
+                <li>Consistent data format across observers</li>
+                <li>Machine-readable for database ingestion</li>
+                <li>Metadata completeness for scientific utility</li>
+            </ul>
+
+            <h4>Generating ALCDEF Files</h4>
+            <ol>
+                <li>In the Lightcurve Analysis window: <strong>File → Export → ALCDEF</strong></li>
+                <li>Canopus auto-populates most fields from session metadata:
+                    <ul>
+                        <li>Object designation</li>
+                        <li>Observer information</li>
+                        <li>Filter</li>
+                        <li>Comparison star details</li>
+                        <li>Photometry parameters</li>
+                        <li>Observation dates/times</li>
+                    </ul>
+                </li>
+                <li>Verify all required fields are complete</li>
+                <li>Save the .txt file</li>
+            </ol>
+
+            <div class="warning">
+                <strong>Critical ALCDEF Fields:</strong>
+                <ul>
+                    <li><strong>FILTER:</strong> Must be standard notation: V, R, I, B, Clear, etc. (NOT "red filter" or "Johnson R")</li>
+                    <li><strong>STANDARD:</strong> Photometric system—Johnson, Cousins, SDSS, etc.</li>
+                    <li><strong>REDUCEDMAGS:</strong> Set to CALIBRATED if you entered catalog magnitudes for comp stars, otherwise DIFFERENTIAL</li>
+                    <li><strong>COMPNAME:</strong> Use catalog designations (TYC, UCAC4, Gaia DR3) separated by pipes (|)</li>
+                    <li><strong>MPCDESIG:</strong> Must exactly match MPC format (e.g., "2023 AB" not "2023AB")</li>
+                </ul>
+            </div>
+
+            <h4>Required ALCDEF Metadata</h4>
+            <p>Ensure these are correctly entered:</p>
+            <ul>
+                <li><strong>Object:</strong> Proper MPC designation</li>
+                <li><strong>Observers:</strong> Names (first initial + last name)</li>
+                <li><strong>Filter:</strong> Must use standard notation (V, R, I, Clear, etc.)</li>
+                <li><strong>Magband:</strong> Photometric system (usually same as filter)</li>
+                <li><strong>Observatory:</strong> MPC code (if assigned) or coordinates</li>
+                <li><strong>Comparison stars:</strong> RA/Dec and catalog magnitudes</li>
+                <li><strong>Exposure time</strong></li>
+                <li><strong>Cycle time:</strong> Total time including readout</li>
+            </ul>
+
+            <div class="tip">
+                <strong>ALCDEF submission:</strong> Submit files to the Minor Planet Center's Asteroid Lightcurve Database (LCDB) via the online portal. Include contact information for follow-up questions.
+            </div>
+
+            <h3>8.3 Publication Checklist</h3>
+            <p>When reporting lightcurve results (journal article, CBET, etc.), include:</p>
+            <ol>
+                <li><strong>Rotation Period:</strong> P = X.XXX ± 0.XXX hours</li>
+                <li><strong>Amplitude:</strong> A = X.XX ± 0.XX magnitudes</li>
+                <li><strong>Observing Dates:</strong> JD or calendar dates of observations</li>
+                <li><strong>Phase Coverage:</strong> Fraction of rotation period observed</li>
+                <li><strong>Photometric System:</strong> Filter and comparison methodology</li>
+                <li><strong>Instrumentation:</strong> Telescope aperture, camera model</li>
+                <li><strong>Phased Lightcurve Plot</strong></li>
+                <li><strong>Period Spectrum:</strong> Demonstrates uniqueness of solution</li>
+                <li><strong>Data Quality:</strong> RMS scatter, number of images, exposure times</li>
+            </ol>
+        </section>
+
+        <section id="troubleshooting">
+            <h2>9. Troubleshooting Common Issues</h2>
+
+            <h3>9.1 Noisy or Scattered Lightcurve</h3>
+            <p><strong>Symptom:</strong> Data points widely scattered around fitted curve; high RMS</p>
+            <p><strong>Possible Causes & Solutions:</strong></p>
+            <ol>
+                <li><strong>Variable comparison star:</strong>
+                    <ul>
+                        <li>Plot comp stars against each other (Canopus has this feature)</li>
+                        <li>If one deviates, remove it from the ensemble</li>
+                        <li>Re-measure with revised comp star set</li>
+                    </ul>
+                </li>
+                <li><strong>Aperture too large:</strong>
+                    <ul>
+                        <li>Captures excessive sky noise</li>
+                        <li>Reduce aperture to 1.5× FWHM</li>
+                    </ul>
+                </li>
+                <li><strong>Aperture too small:</strong>
+                    <ul>
+                        <li>Loses flux, especially in varying seeing</li>
+                        <li>Increase to 2.5× FWHM</li>
+                    </ul>
+                </li>
+                <li><strong>Poor calibration:</strong>
+                    <ul>
+                        <li>Check dark/flat frame quality</li>
+                        <li>Ensure flats are recent and match filter</li>
+                    </ul>
+                </li>
+                <li><strong>Atmospheric variations:</strong>
+                    <ul>
+                        <li>Thin clouds, variable seeing</li>
+                        <li>May be unavoidable; increase observing time</li>
+                    </ul>
+                </li>
+                <li><strong>Image quality issues not caught during preprocessing:</strong>
+                    <ul>
+                        <li>Re-examine FWHM consistency (should vary &lt;20%)</li>
+                        <li>Check saturation levels and star trailing</li>
+                        <li>Remove problematic frames and re-measure</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>9.2 Asteroid Not Tracking Properly</h3>
+            <p><strong>Symptom:</strong> Red aperture drifts off asteroid during measurement</p>
+            <p><strong>Solutions:</strong></p>
+            <ol>
+                <li><strong>Re-select endpoints:</strong>
+                    <ul>
+                        <li>Return to target selection</li>
+                        <li>Click asteroid more precisely in first/last images</li>
+                        <li>Use zoom feature for accuracy</li>
+                    </ul>
+                </li>
+                <li><strong>Non-linear motion:</strong>
+                    <ul>
+                        <li>Long sessions (&gt;6–8 hrs) may show curved paths</li>
+                        <li>Break into 2–3 hour blocks</li>
+                        <li>Measure separately, then combine lightcurves</li>
+                    </ul>
+                </li>
+                <li><strong>Images out of time order:</strong>
+                    <ul>
+                        <li>Verify FITS headers have correct timestamps</li>
+                        <li>Check file loading order in image list</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>9.3 No Clear Period Found</h3>
+            <p><strong>Symptom:</strong> Period spectrum shows no distinct minimum, or all RMS values similar</p>
+            <p><strong>Possible Causes:</strong></p>
+            <ol>
+                <li><strong>Insufficient data:</strong>
+                    <ul>
+                        <li>Need more images or longer time baseline</li>
+                        <li>Aim for &gt;1 complete rotation</li>
+                    </ul>
+                </li>
+                <li><strong>Very slow rotator:</strong>
+                    <ul>
+                        <li>Period &gt;24 hours requires multi-night observations</li>
+                        <li>Extend search range to 48+ hours</li>
+                    </ul>
+                </li>
+                <li><strong>Very fast rotator:</strong>
+                    <ul>
+                        <li>Period &lt;2 hours (rare but possible for small asteroids)</li>
+                        <li>Ensure time resolution is adequate</li>
+                        <li>May require shorter exposures</li>
+                    </ul>
+                </li>
+                <li><strong>Low amplitude:</strong>
+                    <ul>
+                        <li>Nearly spherical asteroids (A &lt; 0.05 mag)</li>
+                        <li>Signal buried in noise</li>
+                        <li>Need higher photometric precision</li>
+                    </ul>
+                </li>
+                <li><strong>Pole-on view:</strong>
+                    <ul>
+                        <li>Viewing asteroid down its rotation axis</li>
+                        <li>Little to no brightness variation</li>
+                        <li>Consider observing at different apparition</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>9.4 Comparison Stars Showing Variability</h3>
+            <p><strong>Symptom:</strong> When plotting comp stars against each other, one or more show trends or variations</p>
+            <p><strong>Solutions:</strong></p>
+            <ol>
+                <li>Identify the variable star(s)</li>
+                <li>Remove from comparison ensemble</li>
+                <li>If possible, add new comparison stars to replace</li>
+                <li>Re-measure the session</li>
+                <li>Cross-check remaining comp stars against VSX catalog</li>
+            </ol>
+
+            <h3>9.5 Saturated Stars</h3>
+            <p><strong>Symptom:</strong> Canopus reports saturation warnings, or stars show flat-topped profiles</p>
+            <p><strong>Solutions:</strong></p>
+            <ol>
+                <li><strong>If asteroid is saturated:</strong>
+                    <ul>
+                        <li>Cannot be salvaged — must re-observe with shorter exposures</li>
+                    </ul>
+                </li>
+                <li><strong>If only comp stars are saturated:</strong>
+                    <ul>
+                        <li>Select fainter comparison stars</li>
+                        <li>Re-measure with new comp set</li>
+                    </ul>
+                </li>
+                <li><strong>Prevention:</strong>
+                    <ul>
+                        <li>Pre-check saturation before long observing runs</li>
+                        <li>Keep peak counts &lt;60% of sensor full well</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section id="advanced">
+            <h2>10. Advanced Topics</h2>
+
+            <h3>10.1 Multi-Night Observations</h3>
+            <p>Combining data from multiple nights improves:</p>
+            <ul>
+                <li>Period precision (longer time baseline)</li>
+                <li>Phase coverage</li>
+                <li>Alias rejection (breaks daily cadence)</li>
+            </ul>
+
+            <p><strong>Procedure:</strong></p>
+            <ol>
+                <li>Create separate sessions for each night</li>
+                <li>Use identical comparison stars across nights (if possible)</li>
+                <li>In Lightcurve Analysis, load multiple sessions simultaneously</li>
+                <li>FALC will analyze combined dataset</li>
+            </ol>
+
+            <div class="note">
+                <strong>NOTE:</strong> For multi-night data, differential photometry is essential. Absolute calibration variations between nights will introduce offsets.
+            </div>
+
+            <h4>Zero Point Shift Tool: Aligning Multi-Night Data</h4>
+            <p>When combining observations from different nights, atmospheric conditions, instrument configuration, or comparison star availability may cause systematic magnitude offsets between datasets.</p>
+
+            <div class="warning">
+                <strong>When Zero Point Shifts Are Needed:</strong>
+                <ul>
+                    <li>Different atmospheric transparency between nights</li>
+                    <li>Changed comparison star ensemble</li>
+                    <li>Different telescope or camera used</li>
+                    <li>Filter swapped or cleaned between sessions</li>
+                </ul>
+                <p>These produce vertical offsets in the lightcurve that don't affect the period but reduce overall fit quality.</p>
+            </div>
+
+            <p><strong>Using the Zero Point Shift Tool in Canopus:</strong></p>
+            <ol>
+                <li>Load multiple sessions into Lightcurve Analysis</li>
+                <li>Phase the data with your best-fit period</li>
+                <li>Navigate to: <strong>Analysis → Zero Point Adjustment</strong> (or similar menu item)</li>
+                <li>Canopus will display each session's data in different colors</li>
+                <li>Options for alignment:
+                    <ul>
+                        <li><strong>Automatic:</strong> Canopus minimizes RMS by shifting each session vertically</li>
+                        <li><strong>Manual:</strong> You specify the offset for each session (in magnitudes)</li>
+                        <li><strong>Reference Session:</strong> Choose one session as the reference (zero shift); others are adjusted relative to it</li>
+                    </ul>
+                </li>
+                <li>Click <strong>Apply Shifts</strong></li>
+                <li>Re-run FALC to generate combined fit</li>
+            </ol>
+
+            <div class="tip">
+                <strong>Best Practices for Multi-Night Photometry:</strong>
+                <ul>
+                    <li>Always use the same comparison star ensemble across nights if possible</li>
+                    <li>If comp stars must change, ensure at least 1–2 stars overlap between nights</li>
+                    <li>Document any changes in observing setup (filters, cameras, etc.)</li>
+                    <li>The zero point shift should be &lt;0.3 mag for good differential photometry</li>
+                    <li>If shifts are &gt;0.5 mag, investigate: possible star misidentification or bad calibration</li>
+                </ul>
+            </div>
+
+            <h3>10.2 Composite Lightcurves</h3>
+            <p>Combining data from different observers/telescopes:</p>
+            <ul>
+                <li>Each dataset must be internally consistent (same comp stars per dataset)</li>
+                <li>Import data into Canopus as separate sessions</li>
+                <li>Phase all data to common period</li>
+                <li>May require magnitude offsets between datasets</li>
+            </ul>
+
+            <h3>10.3 Fast Rotators (Period &lt; 2 hours)</h3>
+            <p>Special considerations:</p>
+            <ul>
+                <li>Exposure time must be short (&lt; 5% of period) to avoid rotational smearing</li>
+                <li>Need many images per rotation (20+ recommended)</li>
+                <li>Timing accuracy becomes critical</li>
+                <li>Verify FITS timestamp precision (sub-second accuracy needed)</li>
+            </ul>
+
+            <h3>10.4 Sparse Data and Incomplete Coverage</h3>
+            <p>If phase coverage is poor:</p>
+            <ul>
+                <li>Period determination becomes less certain</li>
+                <li>May have multiple equally good solutions</li>
+                <li>Amplitude measurement is unreliable</li>
+                <li>Additional observations recommended before publication</li>
+            </ul>
+
+            <h3>10.5 Shape and Pole Modeling</h3>
+            <p>High-quality lightcurves from multiple apparitions enable:</p>
+            <ul>
+                <li>3D shape reconstruction (convex inversion methods)</li>
+                <li>Spin pole determination</li>
+                <li>This is beyond Canopus scope — requires specialized software</li>
+                <li>Examples: KOALA, DAMIT database</li>
+            </ul>
+
+            <p>For these studies, maximize:</p>
+            <ul>
+                <li>Number of apparitions (different viewing geometries)</li>
+                <li>Phase coverage per apparition</li>
+                <li>Photometric precision (&lt;0.02 mag RMS)</li>
+            </ul>
+        </section>
+
+        <section id="glossary">
+            <h2>11. Glossary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ADU</strong></td>
+                        <td>Analog-to-Digital Unit. The raw count value from a CCD/CMOS sensor. Related to photon flux by the camera gain.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aperture Photometry</strong></td>
+                        <td>Technique of measuring stellar brightness by summing pixel values within a defined circular region (aperture).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ALCDEF</strong></td>
+                        <td>Asteroid Lightcurve Data Exchange Format. Standard format for submitting asteroid photometry to the Minor Planet Center.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Differential Photometry</strong></td>
+                        <td>Measuring an object's brightness relative to comparison stars rather than to an absolute calibration standard.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FALC</strong></td>
+                        <td>Fourier Analysis of Light Curves. Algorithm used by Canopus to determine rotation periods via Fourier fitting.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FWHM</strong></td>
+                        <td>Full Width at Half Maximum. Measure of star image size (in pixels). Equal to the diameter of the star profile at 50% of peak intensity. Used to determine appropriate aperture size.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HJD</strong></td>
+                        <td>Heliocentric Julian Date. Julian Date corrected for light-travel time to the Sun's center, removing Earth's orbital motion effects.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>JD</strong></td>
+                        <td>Julian Date. Continuous day count since January 1, 4713 BCE (astronomical timekeeping standard).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lightcurve</strong></td>
+                        <td>Plot of an object's brightness vs. time (or rotation phase). Reveals rotation period and shape information.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MPC</strong></td>
+                        <td>Minor Planet Center. International clearinghouse for asteroid and comet observations.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RMS</strong></td>
+                        <td>Root Mean Square. Statistical measure of scatter around a fitted curve. Lower RMS indicates better fit quality.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SNR</strong></td>
+                        <td>Signal-to-Noise Ratio. Ratio of detected signal to background noise. Higher SNR yields more precise photometry.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WCS</strong></td>
+                        <td>World Coordinate System. FITS header information linking pixel coordinates to sky coordinates (RA/Dec).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VSX</strong></td>
+                        <td>Variable Star Index. Online database of known variable stars maintained by AAVSO.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="checklist">
+            <h2>12. Quick Reference Checklist</h2>
+            <p>Use this checklist to ensure you've completed all critical steps:</p>
+
+            <div class="checklist">
+                <h3>12.1 Pre-Processing Phase</h3>
+                <ul>
+                    <li>Images calibrated (bias/dark/flat applied)</li>
+                    <li>FWHM measured (all images within 20%)</li>
+                    <li>Saturation checked (target and comp stars &lt;60k ADU)</li>
+                    <li>Trailed or defective images removed</li>
+                    <li>Minimum 40–50 images available</li>
+                    <li>Files organized in dedicated folder</li>
+                </ul>
+
+                <h3>12.2 Software Setup Phase</h3>
+                <ul>
+                    <li>Correct equipment profile selected</li>
+                    <li>Images loaded successfully</li>
+                    <li>Aperture radius set to 2× FWHM</li>
+                    <li>Sky annulus parameters configured</li>
+                    <li>Aperture visually verified on test star</li>
+                </ul>
+
+                <h3>12.3 Target Selection Phase</h3>
+                <ul>
+                    <li>Asteroid identified and clicked in first image</li>
+                    <li>Asteroid identified and clicked in last image</li>
+                    <li>Motion vector appears reasonable</li>
+                    <li>Session name entered (descriptive)</li>
+                    <li>Object number/name matches MPC database</li>
+                    <li>Filter correctly specified</li>
+                    <li>Observer code entered (if applicable)</li>
+                    <li>HJD time format selected</li>
+                </ul>
+
+                <h3>12.4 Comparison Star Phase</h3>
+                <ul>
+                    <li>3–5 comp stars selected</li>
+                    <li>All comp stars non-saturated</li>
+                    <li>Comp stars similar brightness to asteroid</li>
+                    <li>Comp stars checked against VSX (no known variables)</li>
+                    <li>Comp stars spatially distributed</li>
+                    <li>Comp stars not in asteroid's path</li>
+                    <li>Catalog magnitudes entered (if calibrated photometry desired)</li>
+                </ul>
+
+                <h3>12.5 Measurement Phase</h3>
+                <ul>
+                    <li>Measurement started</li>
+                    <li>Asteroid tracking verified visually</li>
+                    <li>No error messages during processing</li>
+                    <li>Measurement completed successfully</li>
+                    <li>Session saved to database</li>
+                </ul>
+
+                <h3>12.6 Analysis Phase</h3>
+                <ul>
+                    <li>Session loaded in Lightcurve Analysis</li>
+                    <li>Coarse period search completed (2–20 hr range)</li>
+                    <li>Candidate period(s) identified</li>
+                    <li>Fine period search performed</li>
+                    <li>Optimal Fourier order determined (typically 2–4)</li>
+                    <li>Phased lightcurve inspected for quality</li>
+                    <li>Double-peaked structure observed (typical)</li>
+                    <li>Amplitude in reasonable range (0.1–1.0 mag)</li>
+                    <li>Aliasing checked (period not near 24h, 12h, etc.)</li>
+                    <li>Data scatter consistent with error bars</li>
+                </ul>
+
+                <h3>12.7 Export & Reporting Phase</h3>
+                <ul>
+                    <li>Lightcurve plot exported (PNG/PDF)</li>
+                    <li>Period spectrum saved</li>
+                    <li>Data table exported (CSV/TXT)</li>
+                    <li>ALCDEF file generated</li>
+                    <li>ALCDEF metadata verified complete</li>
+                    <li>Period and uncertainty documented</li>
+                    <li>Amplitude documented</li>
+                    <li>Publication checklist items prepared</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="resources">
+            <h2>13. Additional Resources</h2>
+
+            <h3>13.1 Software & Tools</h3>
+            <ul>
+                <li><strong>MPO Canopus:</strong> <a href="https://minorplanetobserver.com/">https://minorplanetobserver.com/</a></li>
+                <li><strong>DS9 Image Viewer:</strong> <a href="https://sites.google.com/cfa.harvard.edu/saoimageds9">https://sites.google.com/cfa.harvard.edu/saoimageds9</a></li>
+                <li><strong>Astrometrica:</strong> <a href="https://www.astrometrica.at/">https://www.astrometrica.at/</a> (plate solving)</li>
+            </ul>
+
+            <h3>13.2 Catalogs & Databases</h3>
+            <ul>
+                <li><strong>Minor Planet Center:</strong> <a href="https://minorplanetcenter.net/">https://minorplanetcenter.net/</a></li>
+                <li><strong>VSX (Variable Star Index):</strong> <a href="https://www.aavso.org/vsx/">https://www.aavso.org/vsx/</a></li>
+                <li><strong>APASS (photometric catalog):</strong> <a href="https://www.aavso.org/apass">https://www.aavso.org/apass</a></li>
+                <li><strong>LCDB (Lightcurve Database):</strong> <a href="https://alcdef.org/">https://alcdef.org/</a></li>
+                <li><strong>Gaia Archive:</strong> <a href="https://gea.esac.esa.int/archive/">https://gea.esac.esa.int/archive/</a></li>
+            </ul>
+
+            <h3>13.3 Educational Materials</h3>
+            <ul>
+                <li><strong>ALCDEF Standard:</strong> <a href="https://alcdef.org/alcdef-standard">https://alcdef.org/alcdef-standard</a></li>
+                <li><strong>MPO Canopus Manual:</strong> Included with software installation</li>
+                <li><strong>Asteroid Photometry Handbook:</strong> Available from MPO website</li>
+            </ul>
+
+            <h3>13.4 Scientific Background</h3>
+            <ul>
+                <li>Harris et al., "Photoelectric Observations of Asteroids," <em>Icarus</em> (various)</li>
+                <li>Pravec et al., "Asteroid Rotations," chapter in <em>Asteroids IV</em> (2015)</li>
+                <li>Warner et al., "The Asteroid Lightcurve Database," <em>Icarus</em> 202, 134 (2009)</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>This guide is intended as a practical reference and does not replace the official MPO Canopus documentation. Always consult the latest software manual for version-specific features and updates.</p>
+            <p style="margin-top: 10px;">Community-created guide • Not affiliated with MPO Software • Last updated February 2, 2026</p>
+            <p style="margin-top: 10px;"><em>Clear skies!</em></p>
+        </footer>
+    </div>
+</body>
+</html>
