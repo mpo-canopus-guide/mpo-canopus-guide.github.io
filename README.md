@@ -11,7 +11,7 @@ There's currently no good online guide to MPO Canopus v12 available, so this com
 
 ## 📖 Read the Guide
 
-**[View the Complete Guide →](https://[mpo-canopus-guide].github.io/mpo-canopus-guide/)**
+**[View the Complete Guide →](https://[mpo-canopus-guide].github.io)**
 
 ## Download Options
 
