@@ -16,7 +16,7 @@ There's currently no good online guide to MPO Canopus v12 available, so this com
 ## Download Options
 
 - **[PDF Version](MPO_Canopus_Guide.pdf)** - For offline reading or printing
-- **HTML Version** - Best viewed online with full formatting
+- **[HTML Version](index.html)** - Best viewed online with full formatting
 
 ## What's Covered
 
