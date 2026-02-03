@@ -18,6 +18,34 @@
             margin: 0;
         }
 
+        /* --- GLOSSARY POPUPS --- */
+        .glossary-term {
+            border-bottom: 1px dotted #4da6ff;
+            cursor: help;
+            position: relative;
+            color: #66b3ff;
+        }
+        .glossary-term:hover::after {
+            content: attr(data-definition);
+            position: absolute;
+            background: #252525;
+            color: #e0e0e0;
+            padding: 10px;
+            border-radius: 4px;
+            width: 300px;
+            z-index: 100;
+            left: 0;
+            top: 100%;
+            font-size: 14px;
+            line-height: 1.4;
+            border: 1px solid #4da6ff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .glossary-term-code {
+            font-family: monospace;
+            color: #ffd54f;
+        }
+
         /* --- SIDEBAR NAVIGATION --- */
         .sidenav {
             height: 100%;
@@ -203,13 +231,13 @@
         <header>
             <h1>MPO Canopus v12 Workflow</h1>
             <p class="subtitle">Complete Guide to Asteroid Lightcurve Analysis</p>
-            <p class="subtitle">From Raw FITS to Publication-Ready Results</p>
+            <p class="subtitle">From Raw <span class="glossary-term" data-definition="Flexible Image Transport System: The standard digital file format used in astronomy to store images, data, and metadata (headers).">FITS</span> to Publication-Ready Results</p>
             <p class="last-updated">Last Updated: February 2, 2026</p>
         </header>
 
         <section>
             <h2>Abstract</h2>
-            <p>This comprehensive guide provides a step-by-step workflow for asteroid lightcurve photometry using MPO Canopus Version 12. It covers the complete pipeline from image loading and quality assessment through photometric measurement, period analysis, and ALCDEF export. Special emphasis is placed on data quality control, photometric accuracy, and troubleshooting common issues.</p>
+            <p>This comprehensive guide provides a step-by-step workflow for asteroid lightcurve photometry using MPO Canopus Version 12. It covers the complete pipeline from image loading and quality assessment through photometric measurement, period analysis, and <span class="glossary-term" data-definition="Asteroid Lightcurve Data Exchange Format: The international standard for reporting asteroid photometry to the Minor Planet Center.">ALCDEF</span> export. Special emphasis is placed on data quality control, <span class="glossary-term" data-definition="The precision and reliability of brightness measurements, affected by factors like aperture size, comparison star selection, and calibration.">photometric accuracy</span>, and troubleshooting common issues.</p>
         </section>
 
         <div class="downloads">
@@ -221,9 +249,13 @@
             <h2>1. Introduction</h2>
             <p>MPO Canopus v12 is a specialized software package for asteroid photometry and lightcurve analysis. This guide assumes you have:</p>
             <ul>
-                <li>Basic familiarity with astronomical imaging and FITS file format</li>
-                <li>Calibrated images (bias/dark/flat corrected)</li>
-                <li>A basic understanding of differential photometry principles</li>
+                <li>Basic familiarity with astronomical imaging and <span class="glossary-term" data-definition="Flexible Image Transport System: The standard digital file format used in astronomy to store images, data, and metadata (headers).">FITS</span> file format</li>
+                <li>Calibrated images (<span class="glossary-term" data-definition="
+                  <strong>Bias Frame:</strong> Zero-second exposure to measure electronic offset.<br>
+                  <strong>Dark Frame:</strong> Exposure with no light to measure thermal noise.<br>
+                  <strong>Flat Frame:</strong> Exposure of a uniform field to correct pixel sensitivity.
+                ">bias/dark/flat</span> corrected)</li>
+                <li>A basic understanding of <span class="glossary-term" data-definition="Measuring an object's brightness relative to comparison stars rather than to an absolute calibration standard.">differential photometry</span> principles</li>
             </ul>
 
             <h3>1.1 Workflow Overview</h3>
@@ -232,7 +264,7 @@
                 <li><strong>Prerequisites & Quality Control</strong> — Validate image quality</li>
                 <li><strong>Setup & Image Loading</strong> — Configure software and import data</li>
                 <li><strong>Aperture Configuration</strong> — Set photometric parameters</li>
-                <li><strong>Target & Star Selection</strong> — Identify asteroid and comparison stars</li>
+                <li><strong>Target & Star Selection</strong> — Identify asteroid and <span class="glossary-term" data-definition="A non-variable star in the same field of view as the target asteroid, used as a reference for differential photometry.">comparison stars</span></li>
                 <li><strong>Measurement</strong> — Execute photometry</li>
                 <li><strong>Analysis & Export</strong> — Determine period and generate outputs</li>
             </ol>
@@ -248,10 +280,14 @@
             <h3>2.1 Required Image Preparation</h3>
 
             <h4>Calibration</h4>
-            <p>All images must be calibrated with appropriate bias/dark and flat frames. While Canopus can perform calibration, the standard v12 workflow assumes pre-calibrated data.</p>
+            <p>All images must be calibrated with appropriate <span class="glossary-term" data-definition="
+              <strong>Bias Frame:</strong> Zero-second exposure to measure electronic offset.<br>
+              <strong>Dark Frame:</strong> Exposure with no light to measure thermal noise.<br>
+              <strong>Flat Frame:</strong> Exposure of a uniform field to correct pixel sensitivity.
+            ">bias/dark</span> and <span class="glossary-term" data-definition="Exposure of a uniformly illuminated field to correct for pixel-to-pixel sensitivity variations and vignetting.">flat frames</span>. While Canopus can perform calibration, the standard v12 workflow assumes pre-calibrated data.</p>
 
             <h4>Plate Solving</h4>
-            <p>WCS (World Coordinate System) headers are highly recommended. Plate-solved images enable:</p>
+            <p><span class="glossary-term" data-definition="The process of matching star patterns in an image to a star catalog to determine the exact celestial coordinates (RA/Dec) of the field of view.">Plate solving</span> and <span class="glossary-term" data-definition="World Coordinate System: FITS header information that maps pixel coordinates to celestial coordinates (RA/Dec), enabling automatic star identification and coordinate transformations.">WCS headers</span> are highly recommended. Plate-solved images enable:</p>
             <ul>
                 <li>Automatic catalog star identification</li>
                 <li>Accurate coordinate transformations</li>
@@ -266,7 +302,7 @@
             <p>Examine your images carefully before beginning photometry:</p>
 
             <div class="tip">
-                <strong>PRO TIP:</strong> Use DS9, MaxIm DL, or similar software to batch-check FWHM and saturation levels before importing to Canopus. This saves time and prevents wasted processing effort.
+                <strong>PRO TIP:</strong> Use DS9, MaxIm DL, or similar software to batch-check <span class="glossary-term" data-definition="Full Width at Half Maximum: The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.">FWHM</span> and saturation levels before importing to Canopus. This saves time and prevents wasted processing effort.
             </div>
 
             <table>
@@ -283,11 +319,11 @@
                     </tr>
                     <tr>
                         <td><strong>Saturation</strong></td>
-                        <td>Check histogram and peak pixel values. Target and comparison stars must be below saturation threshold (typically &lt;60,000 ADU for 16-bit, &lt;4,000 for 12-bit). <em>Action:</em> Exclude saturated frames.</td>
+                        <td>Check histogram and peak pixel values. Target and comparison stars must be below saturation threshold (typically &lt;60,000 <span class="glossary-term" data-definition="Analog-to-Digital Unit: The raw count value from a CCD/CMOS sensor, related to photon flux by the camera’s gain.">ADU</span> for 16-bit, &lt;4,000 for 12-bit). <em>Action:</em> Exclude saturated frames.</td>
                     </tr>
                     <tr>
                         <td><strong>FWHM</strong></td>
-                        <td>Full Width Half Maximum should be consistent across the session (±20%). Large variations suggest focus drift or changing seeing. <em>Action:</em> Note FWHM for aperture sizing; consider excluding outliers.</td>
+                        <td><span class="glossary-term" data-definition="Full Width at Half Maximum: The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.">FWHM</span> should be consistent across the session (±20%). Large variations suggest focus drift or changing seeing. <em>Action:</em> Note FWHM for aperture sizing; consider excluding outliers.</td>
                     </tr>
                     <tr>
                         <td><strong>Background</strong></td>
@@ -307,13 +343,13 @@
             <h3>3.1 Launching the Asteroid Wizard</h3>
             <ol>
                 <li>Launch MPO Canopus v12</li>
-                <li>Navigate to: <strong>Photometry → Multi-image Photometry → Asteroid Wizard</strong></li>
+                <li>Navigate to: <strong>Photometry → Multi-image Photometry → <span class="glossary-term" data-definition="The guided workflow in MPO Canopus for performing multi-image photometry and lightcurve analysis.">Asteroid Wizard</span></strong></li>
                 <li>The wizard interface replaces the older manual photometry workflow used in earlier Canopus versions</li>
             </ol>
 
             <h3>3.2 Profile Selection</h3>
             <ol start="4">
-                <li>When prompted, select the equipment profile matching your telescope and camera setup</li>
+                <li>When prompted, select the <span class="glossary-term" data-definition="A saved configuration in MPO Canopus that stores telescope, camera, and observatory settings for consistent photometry.">equipment profile</span> matching your telescope and camera setup</li>
                 <li>If no profile exists: <strong>File → Configuration</strong> to create one</li>
                 <li>Profile stores critical parameters:
                     <ul>
@@ -328,7 +364,7 @@
             <h3>3.3 Loading Images</h3>
             <ol start="7">
                 <li>Click the <strong>Select Images</strong> tab</li>
-                <li>Click <strong>Folder</strong> and navigate to your FITS directory</li>
+                <li>Click <strong>Folder</strong> and navigate to your <span class="glossary-term" data-definition="Flexible Image Transport System: The standard digital file format used in astronomy to store images, data, and metadata (headers).">FITS</span> directory</li>
                 <li>Select all files (Ctrl+A or Cmd+A)</li>
                 <li>Configure display options:
                     <ul>
@@ -340,7 +376,7 @@
             </ol>
 
             <div class="note">
-                <strong>NOTE:</strong> Canopus will read FITS headers to extract observation time, exposure duration, and coordinates. Verify that times are correctly extracted (check the image list for JD values).
+                <strong>NOTE:</strong> Canopus will read <span class="glossary-term" data-definition="FITS header information linking pixel coordinates to sky coordinates (RA/Dec).">WCS headers</span> to extract observation time, exposure duration, and coordinates. Verify that times are correctly extracted (check the image list for JD values).
             </div>
         </section>
 
@@ -348,11 +384,11 @@
             <h2>4. Phase 2: Aperture & Photometry Configuration</h2>
 
             <div class="warning">
-                <strong>WARNING:</strong> Aperture sizing is the single most important parameter affecting photometric accuracy. Inappropriate apertures are a leading cause of noisy lightcurves.
+                <strong>WARNING:</strong> Aperture sizing is the single most important parameter affecting <span class="glossary-term" data-definition="The precision and reliability of brightness measurements, affected by factors like aperture size, comparison star selection, and calibration.">photometric accuracy</span>. Inappropriate apertures are a leading cause of noisy lightcurves.
             </div>
 
             <h3>4.1 Understanding Aperture Photometry</h3>
-            <p>Canopus uses aperture photometry with three concentric regions:</p>
+            <p>Canopus uses <span class="glossary-term" data-definition="A technique for measuring the brightness of a star or asteroid by summing the pixel values within a defined circular region (aperture) around the object.">aperture photometry</span> with three concentric regions:</p>
             <ol>
                 <li><strong>Measuring Aperture</strong> — Circular region centered on the star, capturing stellar flux</li>
                 <li><strong>Gap</strong> — Separation zone to avoid contamination</li>
@@ -373,7 +409,7 @@
                 <tbody>
                     <tr>
                         <td><strong>Aperture Radius</strong></td>
-                        <td>1.5–2.5× FWHM</td>
+                        <td>1.5–2.5× <span class="glossary-term" data-definition="Full Width at Half Maximum: The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.">FWHM</span></td>
                         <td>Example: FWHM = 3 px → radius 5–7 px</td>
                     </tr>
                     <tr>
@@ -404,14 +440,14 @@
             <ul>
                 <li><strong>Too Small (r &lt; 1.5×FWHM):</strong> Missing flux from star wings → systematic errors, especially in varying seeing</li>
                 <li><strong>Optimal (r = 1.5–2.5×FWHM):</strong> Captures &gt;95% of star flux while minimizing sky noise</li>
-                <li><strong>Too Large (r &gt; 3×FWHM):</strong> Excessive sky noise dominates → poor signal-to-noise ratio</li>
+                <li><strong>Too Large (r &gt; 3×FWHM):</strong> Excessive sky noise dominates → poor <span class="glossary-term" data-definition="The ratio of the detected signal (e.g., light from a star) to the background noise (e.g., sky glow, sensor noise). Higher SNR yields more precise photometry.">signal-to-noise ratio</span></li>
             </ul>
 
             <div class="tip">
                 <strong>PRO TIP - How to determine FWHM:</strong>
                 <ol>
                     <li>Use Canopus's built-in star profile tool on several non-saturated stars</li>
-                    <li>Average the FWHM measurements</li>
+                    <li>Average the <span class="glossary-term" data-definition="Full Width at Half Maximum: The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.">FWHM</span> measurements</li>
                     <li>Round up to nearest pixel for aperture calculation</li>
                     <li>If FWHM varies significantly (&gt;20%), use the median value</li>
                 </ol>
@@ -454,7 +490,7 @@
             </div>
 
             <h3>5.2 Session Metadata Entry</h3>
-            <p>Accurate metadata is essential for ALCDEF export and scientific validity.</p>
+            <p>Accurate metadata is essential for <span class="glossary-term" data-definition="Asteroid Lightcurve Data Exchange Format: The international standard for reporting asteroid photometry to the Minor Planet Center.">ALCDEF</span> export and scientific validity.</p>
 
             <table>
                 <thead>
@@ -470,7 +506,7 @@
                     </tr>
                     <tr>
                         <td><strong>Object Number/Name</strong></td>
-                        <td>Must match MPC designation exactly for catalog lookups</td>
+                        <td>Must match <span class="glossary-term" data-definition="Minor Planet Center: The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.">MPC</span> designation exactly for catalog lookups</td>
                     </tr>
                     <tr>
                         <td><strong>Filter</strong></td>
@@ -478,15 +514,15 @@
                     </tr>
                     <tr>
                         <td><strong>Observer Code</strong></td>
-                        <td>Your MPC observatory code (if assigned)</td>
+                        <td>Your <span class="glossary-term" data-definition="Minor Planet Center: The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.">MPC</span> observatory code (if assigned)</td>
                     </tr>
                     <tr>
                         <td><strong>Exposure Time</strong></td>
-                        <td>Usually auto-extracted from FITS headers</td>
+                        <td>Usually auto-extracted from <span class="glossary-term" data-definition="FITS header information linking pixel coordinates to sky coordinates (RA/Dec).">FITS headers</span></td>
                     </tr>
                     <tr>
                         <td><strong>Time Format</strong></td>
-                        <td>HJD (Heliocentric Julian Date) recommended. Canopus can convert JD → HJD if object coordinates are known</td>
+                        <td><span class="glossary-term" data-definition="Heliocentric Julian Date: The Julian Date corrected for light-travel time to the Sun’s center, removing Earth's orbital motion effects.">HJD</span> (Heliocentric Julian Date) recommended. Canopus can convert <span class="glossary-term" data-definition="Julian Date: A continuous count of days since January 1, 4713 BCE, used as a standard timekeeping system in astronomy.">JD</span> → HJD if object coordinates are known</td>
                     </tr>
                 </tbody>
             </table>
@@ -496,7 +532,7 @@
             </div>
 
             <h3>5.3 Comparison Star Selection</h3>
-            <p>Canopus will automatically identify candidate comparison stars (marked with green or blue circles).</p>
+            <p>Canopus will automatically identify candidate <span class="glossary-term" data-definition="A non-variable star in the same field of view as the target asteroid, used as a reference for differential photometry.">comparison stars</span> (marked with green or blue circles).</p>
 
             <h4>Selection Criteria</h4>
             <p>Choose 3–5 comparison stars based on:</p>
@@ -504,7 +540,7 @@
                 <li><strong>Brightness Match:</strong>
                     <ul>
                         <li>Similar magnitude to the asteroid (within ±2 mag ideally)</li>
-                        <li>Ensures comparable signal-to-noise ratio</li>
+                        <li>Ensures comparable <span class="glossary-term" data-definition="The ratio of the detected signal (e.g., light from a star) to the background noise (e.g., sky glow, sensor noise). Higher SNR yields more precise photometry.">signal-to-noise ratio</span></li>
                     </ul>
                 </li>
                 <li><strong>Non-Saturation:</strong>
@@ -515,7 +551,7 @@
                 </li>
                 <li><strong>Stability (Variable Star Check):</strong>
                     <ul>
-                        <li>Cross-check against VSX (Variable Star Index) database</li>
+                        <li>Cross-check against <span class="glossary-term" data-definition="Variable Star Index: An online database of known variable stars, used to check comparison stars for variability.">VSX</span> (Variable Star Index) database</li>
                         <li>Canopus can perform this check if catalog access is configured</li>
                         <li>Avoid known variables at all costs</li>
                     </ul>
@@ -543,7 +579,7 @@
             </ol>
 
             <div class="tip">
-                <strong>Check Star Technique:</strong> Designate one comparison star as a "check star" and monitor its constancy relative to other comparisons during analysis. A stable check star validates your comparison ensemble.
+                <strong>Check Star Technique:</strong> Designate one comparison star as a <span class="glossary-term" data-definition="A stable comparison star used to monitor the constancy of the comparison star ensemble and validate photometric accuracy.">check star</span> and monitor its constancy relative to other comparisons during analysis. A stable check star validates your comparison ensemble.
             </div>
 
             <h3>5.4 Understanding Differential vs. Calibrated Photometry</h3>
@@ -551,7 +587,7 @@
             <h4>Differential Photometry (Default)</h4>
             <p>Canopus measures the asteroid's brightness relative to comparison stars. This produces:</p>
             <ul>
-                <li>Instrumental magnitudes (arbitrary zero-point)</li>
+                <li><span class="glossary-term" data-definition="The apparent magnitude of an object measured in a specific instrumental setup (telescope + camera + filter), without absolute calibration.">Instrumental magnitudes</span> (arbitrary zero-point)</li>
                 <li>Excellent for period determination (only relative changes matter)</li>
                 <li>Cannot be directly compared to catalog values</li>
             </ul>
@@ -561,14 +597,14 @@
             <ol>
                 <li>Obtain catalog magnitudes for your comparison stars from:
                     <ul>
-                        <li>AAVSO Photometric All-Sky Survey (APASS)</li>
+                        <li><span class="glossary-term" data-definition="AAVSO Photometric All-Sky Survey: A catalog of precise photometric measurements for stars across the sky, used for calibrating comparison stars.">APASS</span></li>
                         <li>Gaia DR3</li>
                         <li>2MASS (for infrared)</li>
                         <li>Pan-STARRS</li>
                     </ul>
                 </li>
                 <li>Enter catalog magnitudes in: <strong>Session Manager → Comparison Stars</strong></li>
-                <li>Canopus will calculate calibrated target magnitudes</li>
+                <li>Canopus will calculate <span class="glossary-term" data-definition="The apparent magnitude of an object calibrated to a standard photometric system (e.g., Johnson-Cousins V, R, I bands).">standard magnitudes</span></li>
                 <li>Results can be compared to predicted asteroid magnitudes</li>
             </ol>
 
@@ -584,7 +620,7 @@
             <ol>
                 <li>Verify all settings (apertures, comp stars, metadata)</li>
                 <li>Click the <strong>Measure</strong> button</li>
-                <li>Canopus will iterate through all FITS files, measuring:
+                <li>Canopus will iterate through all <span class="glossary-term" data-definition="Flexible Image Transport System: The standard digital file format used in astronomy to store images, data, and metadata (headers).">FITS</span> files, measuring:
                     <ul>
                         <li>Target asteroid at predicted positions</li>
                         <li>All comparison stars at fixed positions</li>
@@ -619,14 +655,14 @@
             <p>For sessions exceeding 6–8 hours, asteroid motion often becomes non-linear, causing the fixed-path tracking to fail.</p>
             <ol>
                 <li><strong>Data Segmentation:</strong> Break the session into 3–4 hour "blocks"</li>
-                <li><strong>Measurement:</strong> Run the measurement wizard for the first block. Once complete, do not clear the session</li>
+                <li><strong>Measurement:</strong> Run the measurement wizard for the first block. Once complete, do not clear the <span class="glossary-term" data-definition="A collection of images, settings, and measurements in MPO Canopus representing a single observing run or analysis.">session</span></li>
                 <li><strong>Stitching:</strong> Load the next block of images. MPO Canopus will treat these as a continuation. Re-center the target on the first frame of the new block; the software will calculate a new motion vector while preserving the photometric zero-point from the previous stars</li>
             </ol>
 
             <h3>6.3 Automatic Session Saving</h3>
             <p>Upon completion, Canopus automatically saves:</p>
             <ul>
-                <li>Photometric data to the MPO database (.MDB file)</li>
+                <li>Photometric data to the <span class="glossary-term" data-definition="The proprietary database format used by MPO Canopus to store photometric sessions, measurements, and metadata.">MPO database (.MDB)</span></li>
                 <li>Session parameters and metadata</li>
                 <li>Comparison star information</li>
             </ul>
@@ -639,7 +675,7 @@
             <h3>7.1 Loading Data into Analysis Mode</h3>
             <ol>
                 <li>Close the Photometry Wizard (if still open)</li>
-                <li>Navigate to: <strong>Lightcurve Analysis</strong> (toolbar icon or Analysis menu)</li>
+                <li>Navigate to: <strong><span class="glossary-term" data-definition="The interface in MPO Canopus for loading, phasing, and analyzing photometric data.">Lightcurve Analysis</span></strong> (toolbar icon or Analysis menu)</li>
                 <li>In the Analysis window:
                     <ul>
                         <li>Click <strong>Sessions</strong> (top-left panel)</li>
@@ -651,12 +687,12 @@
             </ol>
 
             <h3>7.2 Understanding FALC</h3>
-            <p>FALC (Fourier Analysis of Light Curves) determines the rotation period by:</p>
+            <p><span class="glossary-term" data-definition="Fourier Analysis of Light Curves: The algorithm in Canopus that determines the rotation period by fitting Fourier series to phased lightcurve data.">FALC</span> (Fourier Analysis of Light Curves) determines the rotation period by:</p>
             <ol>
                 <li>Testing a range of trial periods</li>
                 <li>For each period, folding the lightcurve (wrapping time onto phase 0.0–1.0)</li>
                 <li>Fitting a Fourier series to the phased data</li>
-                <li>Computing the RMS (Root Mean Square) residual</li>
+                <li>Computing the <span class="glossary-term" data-definition="Root Mean Square: A statistical measure of the scatter of data points around a fitted curve. Lower RMS indicates a better fit.">RMS</span> (Root Mean Square) residual</li>
                 <li>Identifying the period with minimum RMS as the best-fit rotation period</li>
             </ol>
 
@@ -723,7 +759,7 @@
 
             <h4>Step 4: Optimizing Fourier Order</h4>
             <ol>
-                <li>With the best period selected, experiment with Fourier order:
+                <li>With the best period selected, experiment with <span class="glossary-term" data-definition="The number of terms (harmonics) used in the Fourier series to fit the lightcurve. Higher orders can fit more complex shapes but risk overfitting.">Fourier order</span>:
                     <ul>
                         <li><strong>Order = 2:</strong> Double-peaked, sinusoidal lightcurve</li>
                         <li><strong>Order = 3–4:</strong> Asymmetric or complex shapes</li>
@@ -817,7 +853,7 @@
                 <tbody>
                     <tr>
                         <td><strong>Symmetry</strong></td>
-                        <td>Most asteroids show double-peaked lightcurves (two maxima and two minima per rotation) due to elongated shape</td>
+                        <td>Most asteroids show <span class="glossary-term" data-definition="A lightcurve with two maxima and two minima per rotation, typical of elongated asteroids viewed equator-on.">double-peaked lightcurves</span> (two maxima and two minima per rotation) due to elongated shape</td>
                     </tr>
                     <tr>
                         <td><strong>Amplitude</strong></td>
@@ -870,7 +906,7 @@
             <p>Canopus provides several export options:</p>
 
             <h4>Lightcurve Plot</h4>
-            <p>Use <strong>Print/Export</strong> to save the phased lightcurve as:</p>
+            <p>Use <strong>Print/Export</strong> to save the <span class="glossary-term" data-definition="A plot of an object's brightness versus time (or rotation phase), used to determine rotation periods and infer shape.">phased lightcurve</span> as:</p>
             <ul>
                 <li>Image file (PNG, JPEG) for publications</li>
                 <li>PDF for reports</li>
@@ -880,7 +916,7 @@
             <p>Export raw photometry as:</p>
             <ul>
                 <li>CSV or TXT for custom analysis</li>
-                <li>Includes: time (JD/HJD), magnitude, error, phase</li>
+                <li>Includes: time (<span class="glossary-term" data-definition="Heliocentric Julian Date: The Julian Date corrected for light-travel time to the Sun’s center, removing Earth's orbital motion effects.">HJD</span>/<span class="glossary-term" data-definition="Julian Date: A continuous count of days since January 1, 4713 BCE, used as a standard timekeeping system in astronomy.">JD</span>), magnitude, error, phase</li>
             </ul>
 
             <h4>Period Spectrum</h4>
@@ -889,7 +925,7 @@
             <h3>8.2 ALCDEF Format</h3>
 
             <h4>What is ALCDEF?</h4>
-            <p>ALCDEF (Asteroid Lightcurve Data Exchange Format) is the international standard for reporting asteroid photometry to the Minor Planet Center. It ensures:</p>
+            <p><span class="glossary-term" data-definition="Asteroid Lightcurve Data Exchange Format: The international standard for reporting asteroid photometry to the Minor Planet Center.">ALCDEF</span> (Asteroid Lightcurve Data Exchange Format) is the international standard for reporting asteroid photometry to the <span class="glossary-term" data-definition="Minor Planet Center: The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.">Minor Planet Center</span>. It ensures:</p>
             <ul>
                 <li>Consistent data format across observers</li>
                 <li>Machine-readable for database ingestion</li>
@@ -920,25 +956,25 @@
                     <li><strong>STANDARD:</strong> Photometric system—Johnson, Cousins, SDSS, etc.</li>
                     <li><strong>REDUCEDMAGS:</strong> Set to CALIBRATED if you entered catalog magnitudes for comp stars, otherwise DIFFERENTIAL</li>
                     <li><strong>COMPNAME:</strong> Use catalog designations (TYC, UCAC4, Gaia DR3) separated by pipes (|)</li>
-                    <li><strong>MPCDESIG:</strong> Must exactly match MPC format (e.g., "2023 AB" not "2023AB")</li>
+                    <li><strong>MPCDESIG:</strong> Must exactly match <span class="glossary-term" data-definition="Minor Planet Center: The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.">MPC</span> format (e.g., "2023 AB" not "2023AB")</li>
                 </ul>
             </div>
 
             <h4>Required ALCDEF Metadata</h4>
             <p>Ensure these are correctly entered:</p>
             <ul>
-                <li><strong>Object:</strong> Proper MPC designation</li>
+                <li><strong>Object:</strong> Proper <span class="glossary-term" data-definition="Minor Planet Center: The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.">MPC</span> designation</li>
                 <li><strong>Observers:</strong> Names (first initial + last name)</li>
                 <li><strong>Filter:</strong> Must use standard notation (V, R, I, Clear, etc.)</li>
                 <li><strong>Magband:</strong> Photometric system (usually same as filter)</li>
-                <li><strong>Observatory:</strong> MPC code (if assigned) or coordinates</li>
+                <li><strong>Observatory:</strong> <span class="glossary-term" data-definition="Minor Planet Center: The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.">MPC</span> code (if assigned) or coordinates</li>
                 <li><strong>Comparison stars:</strong> RA/Dec and catalog magnitudes</li>
                 <li><strong>Exposure time</strong></li>
                 <li><strong>Cycle time:</strong> Total time including readout</li>
             </ul>
 
             <div class="tip">
-                <strong>ALCDEF submission:</strong> Submit files to the Minor Planet Center's Asteroid Lightcurve Database (LCDB) via the online portal. Include contact information for follow-up questions.
+                <strong>ALCDEF submission:</strong> Submit files to the <span class="glossary-term" data-definition="Minor Planet Center: The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.">Minor Planet Center</span>'s Asteroid Lightcurve Database (LCDB) via the online portal. Include contact information for follow-up questions.
             </div>
 
             <h3>8.3 Publication Checklist</h3>
@@ -946,7 +982,7 @@
             <ol>
                 <li><strong>Rotation Period:</strong> P = X.XXX ± 0.XXX hours</li>
                 <li><strong>Amplitude:</strong> A = X.XX ± 0.XX magnitudes</li>
-                <li><strong>Observing Dates:</strong> JD or calendar dates of observations</li>
+                <li><strong>Observing Dates:</strong> <span class="glossary-term" data-definition="Heliocentric Julian Date: The Julian Date corrected for light-travel time to the Sun’s center, removing Earth's orbital motion effects.">HJD</span> or calendar dates of observations</li>
                 <li><strong>Phase Coverage:</strong> Fraction of rotation period observed</li>
                 <li><strong>Photometric System:</strong> Filter and comparison methodology</li>
                 <li><strong>Instrumentation:</strong> Telescope aperture, camera model</li>
@@ -960,7 +996,7 @@
             <h2>9. Troubleshooting Common Issues</h2>
 
             <h3>9.1 Noisy or Scattered Lightcurve</h3>
-            <p><strong>Symptom:</strong> Data points widely scattered around fitted curve; high RMS</p>
+            <p><strong>Symptom:</strong> Data points widely scattered around fitted curve; high <span class="glossary-term" data-definition="Root Mean Square: A statistical measure of the scatter of data points around a fitted curve. Lower RMS indicates a better fit.">RMS</span></p>
             <p><strong>Possible Causes & Solutions:</strong></p>
             <ol>
                 <li><strong>Variable comparison star:</strong>
@@ -973,13 +1009,13 @@
                 <li><strong>Aperture too large:</strong>
                     <ul>
                         <li>Captures excessive sky noise</li>
-                        <li>Reduce aperture to 1.5× FWHM</li>
+                        <li>Reduce aperture to 1.5× <span class="glossary-term" data-definition="Full Width at Half Maximum: The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.">FWHM</span></li>
                     </ul>
                 </li>
                 <li><strong>Aperture too small:</strong>
                     <ul>
                         <li>Loses flux, especially in varying seeing</li>
-                        <li>Increase to 2.5× FWHM</li>
+                        <li>Increase to 2.5× <span class="glossary-term" data-definition="Full Width at Half Maximum: The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.">FWHM</span></li>
                     </ul>
                 </li>
                 <li><strong>Poor calibration:</strong>
@@ -996,7 +1032,7 @@
                 </li>
                 <li><strong>Image quality issues not caught during preprocessing:</strong>
                     <ul>
-                        <li>Re-examine FWHM consistency (should vary &lt;20%)</li>
+                        <li>Re-examine <span class="glossary-term" data-definition="Full Width at Half Maximum: The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.">FWHM</span> consistency (should vary &lt;20%)</li>
                         <li>Check saturation levels and star trailing</li>
                         <li>Remove problematic frames and re-measure</li>
                     </ul>
@@ -1023,14 +1059,14 @@
                 </li>
                 <li><strong>Images out of time order:</strong>
                     <ul>
-                        <li>Verify FITS headers have correct timestamps</li>
+                        <li>Verify <span class="glossary-term" data-definition="FITS header information linking pixel coordinates to sky coordinates (RA/Dec).">FITS headers</span> have correct timestamps</li>
                         <li>Check file loading order in image list</li>
                     </ul>
                 </li>
             </ol>
 
             <h3>9.3 No Clear Period Found</h3>
-            <p><strong>Symptom:</strong> Period spectrum shows no distinct minimum, or all RMS values similar</p>
+            <p><strong>Symptom:</strong> Period spectrum shows no distinct minimum, or all <span class="glossary-term" data-definition="Root Mean Square: A statistical measure of the scatter of data points around a fitted curve. Lower RMS indicates a better fit.">RMS</span> values similar</p>
             <p><strong>Possible Causes:</strong></p>
             <ol>
                 <li><strong>Insufficient data:</strong>
@@ -1063,7 +1099,7 @@
                     <ul>
                         <li>Viewing asteroid down its rotation axis</li>
                         <li>Little to no brightness variation</li>
-                        <li>Consider observing at different apparition</li>
+                        <li>Consider observing at different <span class="glossary-term" data-definition="A period during which an asteroid is observable from Earth, typically lasting several months.">apparition</span></li>
                     </ul>
                 </li>
             </ol>
@@ -1076,7 +1112,7 @@
                 <li>Remove from comparison ensemble</li>
                 <li>If possible, add new comparison stars to replace</li>
                 <li>Re-measure the session</li>
-                <li>Cross-check remaining comp stars against VSX catalog</li>
+                <li>Cross-check remaining comp stars against <span class="glossary-term" data-definition="Variable Star Index: An online database of known variable stars, used to check comparison stars for variability.">VSX</span> catalog</li>
             </ol>
 
             <h3>9.5 Saturated Stars</h3>
@@ -1116,10 +1152,10 @@
 
             <p><strong>Procedure:</strong></p>
             <ol>
-                <li>Create separate sessions for each night</li>
+                <li>Create separate <span class="glossary-term" data-definition="A collection of images, settings, and measurements in MPO Canopus representing a single observing run or analysis.">sessions</span> for each night</li>
                 <li>Use identical comparison stars across nights (if possible)</li>
                 <li>In Lightcurve Analysis, load multiple sessions simultaneously</li>
-                <li>FALC will analyze combined dataset</li>
+                <li><span class="glossary-term" data-definition="Fourier Analysis of Light Curves: The algorithm in Canopus that determines the rotation period by fitting Fourier series to phased lightcurve data.">FALC</span> will analyze combined dataset</li>
             </ol>
 
             <div class="note">
@@ -1187,7 +1223,7 @@
             </ul>
 
             <h3>10.4 Sparse Data and Incomplete Coverage</h3>
-            <p>If phase coverage is poor:</p>
+            <p>If <span class="glossary-term" data-definition="The fraction of an asteroid’s rotation period observed during a session. Full phase coverage (0.0–1.0) is ideal for accurate period determination.">phase coverage</span> is poor:</p>
             <ul>
                 <li>Period determination becomes less certain</li>
                 <li>May have multiple equally good solutions</li>
@@ -1196,9 +1232,9 @@
             </ul>
 
             <h3>10.5 Shape and Pole Modeling</h3>
-            <p>High-quality lightcurves from multiple apparitions enable:</p>
+            <p>High-quality lightcurves from multiple <span class="glossary-term" data-definition="A period during which an asteroid is observable from Earth, typically lasting several months.">apparitions</span> enable:</p>
             <ul>
-                <li>3D shape reconstruction (convex inversion methods)</li>
+                <li>3D shape reconstruction (<span class="glossary-term" data-definition="A mathematical method for reconstructing the 3D shape of an asteroid from its lightcurves observed at multiple viewing geometries.">convex inversion</span> methods)</li>
                 <li>Spin pole determination</li>
                 <li>This is beyond Canopus scope — requires specialized software</li>
                 <li>Examples: KOALA, DAMIT database</li>
@@ -1228,55 +1264,119 @@
                     </tr>
                     <tr>
                         <td><strong>Aperture Photometry</strong></td>
-                        <td>Technique of measuring stellar brightness by summing pixel values within a defined circular region (aperture).</td>
+                        <td>A technique for measuring the brightness of a star or asteroid by summing the pixel values within a defined circular region (aperture).</td>
                     </tr>
                     <tr>
                         <td><strong>ALCDEF</strong></td>
                         <td>Asteroid Lightcurve Data Exchange Format. Standard format for submitting asteroid photometry to the Minor Planet Center.</td>
                     </tr>
                     <tr>
+                        <td><strong>Apparition</strong></td>
+                        <td>A period during which an asteroid is observable from Earth, typically lasting several months.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bias/Dark/Flat Frames</strong></td>
+                        <td>
+                            <strong>Bias Frame:</strong> Zero-second exposure to measure electronic offset.<br>
+                            <strong>Dark Frame:</strong> Exposure with no light to measure thermal noise.<br>
+                            <strong>Flat Frame:</strong> Exposure of a uniformly illuminated field to correct pixel sensitivity.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Check Star</strong></td>
+                        <td>A stable comparison star used to monitor the constancy of the comparison star ensemble and validate photometric accuracy.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comparison Star</strong></td>
+                        <td>A non-variable star in the same field of view as the target asteroid, used as a reference for differential photometry.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Convex Inversion</strong></td>
+                        <td>A mathematical method for reconstructing the 3D shape of an asteroid from its lightcurves observed at multiple viewing geometries.</td>
+                    </tr>
+                    <tr>
                         <td><strong>Differential Photometry</strong></td>
                         <td>Measuring an object's brightness relative to comparison stars rather than to an absolute calibration standard.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Double-Peaked Lightcurve</strong></td>
+                        <td>A lightcurve with two maxima and two minima per rotation, typical of elongated asteroids viewed equator-on.</td>
                     </tr>
                     <tr>
                         <td><strong>FALC</strong></td>
                         <td>Fourier Analysis of Light Curves. Algorithm used by Canopus to determine rotation periods via Fourier fitting.</td>
                     </tr>
                     <tr>
+                        <td><strong>FITS</strong></td>
+                        <td>Flexible Image Transport System. The standard digital file format used in astronomy to store images, data, and metadata (headers).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fourier Order</strong></td>
+                        <td>The number of terms (harmonics) used in the Fourier series to fit the lightcurve. Higher orders can fit more complex shapes but risk overfitting.</td>
+                    </tr>
+                    <tr>
                         <td><strong>FWHM</strong></td>
-                        <td>Full Width at Half Maximum. Measure of star image size (in pixels). Equal to the diameter of the star profile at 50% of peak intensity. Used to determine appropriate aperture size.</td>
+                        <td>Full Width at Half Maximum. The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.</td>
                     </tr>
                     <tr>
                         <td><strong>HJD</strong></td>
-                        <td>Heliocentric Julian Date. Julian Date corrected for light-travel time to the Sun's center, removing Earth's orbital motion effects.</td>
+                        <td>Heliocentric Julian Date. The Julian Date corrected for light-travel time to the Sun’s center, removing Earth's orbital motion effects.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Instrumental Magnitude</strong></td>
+                        <td>The apparent magnitude of an object measured in a specific instrumental setup (telescope + camera + filter), without absolute calibration.</td>
                     </tr>
                     <tr>
                         <td><strong>JD</strong></td>
-                        <td>Julian Date. Continuous day count since January 1, 4713 BCE (astronomical timekeeping standard).</td>
+                        <td>Julian Date. A continuous count of days since January 1, 4713 BCE, used as a standard timekeeping system in astronomy.</td>
                     </tr>
                     <tr>
                         <td><strong>Lightcurve</strong></td>
-                        <td>Plot of an object's brightness vs. time (or rotation phase). Reveals rotation period and shape information.</td>
+                        <td>A plot of an object's brightness versus time (or rotation phase), used to determine rotation periods and infer shape.</td>
                     </tr>
                     <tr>
                         <td><strong>MPC</strong></td>
-                        <td>Minor Planet Center. International clearinghouse for asteroid and comet observations.</td>
+                        <td>Minor Planet Center. The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Overfitting</strong></td>
+                        <td>Fitting a model (e.g., high-order Fourier series) to noise in the data, rather than the true signal, leading to misleading results.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase Coverage</strong></td>
+                        <td>The fraction of an asteroid’s rotation period observed during a session. Full phase coverage (0.0–1.0) is ideal for accurate period determination.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phased Lightcurve</strong></td>
+                        <td>A lightcurve folded (wrapped) onto a single rotation period (phase 0.0–1.0), revealing the object’s brightness variation as a function of rotation phase.</td>
                     </tr>
                     <tr>
                         <td><strong>RMS</strong></td>
-                        <td>Root Mean Square. Statistical measure of scatter around a fitted curve. Lower RMS indicates better fit quality.</td>
+                        <td>Root Mean Square. A statistical measure of the scatter of data points around a fitted curve. Lower RMS indicates a better fit.</td>
                     </tr>
                     <tr>
-                        <td><strong>SNR</strong></td>
-                        <td>Signal-to-Noise Ratio. Ratio of detected signal to background noise. Higher SNR yields more precise photometry.</td>
+                        <td><strong>Session</strong></td>
+                        <td>A collection of images, settings, and measurements in MPO Canopus representing a single observing run or analysis.</td>
                     </tr>
                     <tr>
-                        <td><strong>WCS</strong></td>
-                        <td>World Coordinate System. FITS header information linking pixel coordinates to sky coordinates (RA/Dec).</td>
+                        <td><strong>Signal-to-Noise Ratio (SNR)</strong></td>
+                        <td>The ratio of the detected signal (e.g., light from a star) to the background noise (e.g., sky glow, sensor noise). Higher SNR yields more precise photometry.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standard Magnitude</strong></td>
+                        <td>The apparent magnitude of an object calibrated to a standard photometric system (e.g., Johnson-Cousins V, R, I bands).</td>
                     </tr>
                     <tr>
                         <td><strong>VSX</strong></td>
-                        <td>Variable Star Index. Online database of known variable stars maintained by AAVSO.</td>
+                        <td>Variable Star Index. An online database of known variable stars, used to check comparison stars for variability.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WCS</strong></td>
+                        <td>World Coordinate System. FITS header information that maps pixel coordinates to celestial coordinates (RA/Dec), enabling automatic star identification and coordinate transformations.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Zero Point Shift</strong></td>
+                        <td>A systematic offset in magnitude between datasets (e.g., from different nights), often caused by changes in atmospheric transparency or instrumentation.</td>
                     </tr>
                 </tbody>
             </table>
