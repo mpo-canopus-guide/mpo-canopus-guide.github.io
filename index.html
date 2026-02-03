@@ -8,13 +8,13 @@
     <style>
         /* --- RESET & BASICS --- */
         * { box-sizing: border-box; }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             /* DARK MODE COLORS */
             color: #e0e0e0;
-            background-color: #121212; 
+            background-color: #121212;
             margin: 0;
         }
 
@@ -76,7 +76,7 @@
         h2 { color: #4da6ff; border-bottom: 1px solid #444; padding-bottom: 10px; margin-top: 50px; }
         h3 { color: #a3d1ff; margin-top: 30px; }
         h4 { color: #cce5ff; margin-top: 20px; }
-        
+
         a { color: #66b3ff; text-decoration: none; }
         a:hover { text-decoration: underline; }
 
@@ -121,26 +121,37 @@
             color: #fff;
         }
         .note strong { color: #64b5f6; }
-        
+
         /* --- INTERACTIVE ELEMENTS --- */
-        .interactive-list { list-style: none; padding: 0; }
-        .interactive-list li { 
-            background: #1e1e1e; 
-            margin-bottom: 8px; 
-            padding: 10px; 
-            border: 1px solid #333; 
+        .interactive-list {
+            list-style: none;
+            padding: 0;
+        }
+        .interactive-list li {
+            background: #1e1e1e;
+            margin-bottom: 8px;
+            padding: 10px;
+            border: 1px solid #333;
             border-radius: 4px;
             display: flex;
             align-items: center;
             cursor: pointer;
             transition: background 0.2s;
         }
-        .interactive-list li:hover { background: #252525; }
-        .interactive-list input[type="checkbox"] { 
-            margin-right: 15px; 
-            transform: scale(1.5); 
+        .interactive-list li:hover {
+            background: #252525;
+        }
+        .interactive-list input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.5);
             cursor: pointer;
-            accent-color: #4da6ff; /* <--- Makes them Bright Blue */
+            accent-color: #4da6ff;
+        }
+        .interactive-list label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            width: 100%;
         }
 
         /* --- UTILS --- */
@@ -155,8 +166,14 @@
             font-weight: 600;
             border: 1px solid #1b5e20;
         }
-        
-        footer { color: #888; border-top: 1px solid #444; margin-top: 60px; padding-top: 20px; text-align: center; }
+
+        footer {
+            color: #888;
+            border-top: 1px solid #444;
+            margin-top: 60px;
+            padding-top: 20px;
+            text-align: center;
+        }
 
         @media screen and (max-width: 800px) {
             .sidenav { width: 100%; height: auto; position: relative; }
@@ -167,7 +184,7 @@
 </head>
 <body>
     <div class="sidenav">
-    <h3>Workflow Guide</h3>
+        <h3>Workflow Guide</h3>
         <a href="#introduction">1. Introduction</a>
         <a href="#phase0">2. Prerequisites</a>
         <a href="#phase1">3. Setup & Loading</a>
@@ -180,8 +197,8 @@
         <a href="#advanced">10. Advanced</a>
         <a href="#checklist">11. Checklist</a>
         <a href="#resources">12. Resources</a>
-        </div>
-    
+    </div>
+
     <div class="container">
         <header>
             <h1>MPO Canopus v12 Workflow</h1>
@@ -197,7 +214,7 @@
 
         <div class="downloads">
             <h3>Downloads</h3>
-            <a href="MPO_Canopus_Guide.pdf">📥 Download PDF Version</a>
+            <a href="MPO_Canopus_Guide.pdf" class="download-btn">📥 Download PDF Version</a>
         </div>
 
         <section id="introduction">
@@ -223,13 +240,13 @@
 
         <section id="phase0">
             <h2>2. Phase 0: Prerequisites & Image Quality Assessment</h2>
-            
+
             <div class="warning">
                 <strong>WARNING:</strong> Poor quality images will produce unreliable lightcurves regardless of analysis technique. Always perform quality checks before loading data into Canopus.
             </div>
 
             <h3>2.1 Required Image Preparation</h3>
-            
+
             <h4>Calibration</h4>
             <p>All images must be calibrated with appropriate bias/dark and flat frames. While Canopus can perform calibration, the standard v12 workflow assumes pre-calibrated data.</p>
 
@@ -1266,88 +1283,88 @@
         </section>
 
         <section id="checklist">
-    <h2>12. Quick Reference Checklist</h2>
-    <p>Use this checklist to ensure you've completed all critical steps:</p>
+            <h2>12. Quick Reference Checklist</h2>
+            <p>Use this checklist to ensure you've completed all critical steps:</p>
 
-  <div class="checklist">
-    <h3>12.1 Pre-Processing Phase</h3>
-    <ul class="interactive-list">
-        <li><label><input type="checkbox"> Images calibrated (bias/dark/flat applied)</label></li>
-        <li><label><input type="checkbox"> FWHM measured (all images within 20%)</label></li>
-        <li><label><input type="checkbox"> Saturation checked (target and comp stars &lt;60k ADU)</label></li>
-        <li><label><input type="checkbox"> Trailed or defective images removed</label></li>
-        <li><label><input type="checkbox"> Minimum 40–50 images available</label></li>
-        <li><label><input type="checkbox"> Files organized in dedicated folder</label></li>
-    </ul>
+            <div class="checklist">
+                <h3>12.1 Pre-Processing Phase</h3>
+                <ul class="interactive-list">
+                    <li><label><input type="checkbox"> Images calibrated (bias/dark/flat applied)</label></li>
+                    <li><label><input type="checkbox"> FWHM measured (all images within 20%)</label></li>
+                    <li><label><input type="checkbox"> Saturation checked (target and comp stars &lt;60k ADU)</label></li>
+                    <li><label><input type="checkbox"> Trailed or defective images removed</label></li>
+                    <li><label><input type="checkbox"> Minimum 40–50 images available</label></li>
+                    <li><label><input type="checkbox"> Files organized in dedicated folder</label></li>
+                </ul>
 
-    <h3>12.2 Software Setup Phase</h3>
-    <ul class="interactive-list">
-        <li><label><input type="checkbox"> Correct equipment profile selected</label></li>
-        <li><label><input type="checkbox"> Images loaded successfully</label></li>
-        <li><label><input type="checkbox"> Aperture radius set to 2× FWHM</label></li>
-        <li><label><input type="checkbox"> Sky annulus parameters configured</label></li>
-        <li><label><input type="checkbox"> Aperture visually verified on test star</label></li>
-    </ul>
+                <h3>12.2 Software Setup Phase</h3>
+                <ul class="interactive-list">
+                    <li><label><input type="checkbox"> Correct equipment profile selected</label></li>
+                    <li><label><input type="checkbox"> Images loaded successfully</label></li>
+                    <li><label><input type="checkbox"> Aperture radius set to 2× FWHM</label></li>
+                    <li><label><input type="checkbox"> Sky annulus parameters configured</label></li>
+                    <li><label><input type="checkbox"> Aperture visually verified on test star</label></li>
+                </ul>
 
-    <h3>12.3 Target Selection Phase</h3>
-    <ul class="interactive-list">
-        <li><label><input type="checkbox"> Asteroid identified and clicked in first image</label></li>
-        <li><label><input type="checkbox"> Asteroid identified and clicked in last image</label></li>
-        <li><label><input type="checkbox"> Motion vector appears reasonable</label></li>
-        <li><label><input type="checkbox"> Session name entered (descriptive)</label></li>
-        <li><label><input type="checkbox"> Object number/name matches MPC database</label></li>
-        <li><label><input type="checkbox"> Filter correctly specified</label></li>
-        <li><label><input type="checkbox"> Observer code entered (if applicable)</label></li>
-        <li><label><input type="checkbox"> HJD time format selected</label></li>
-    </ul>
+                <h3>12.3 Target Selection Phase</h3>
+                <ul class="interactive-list">
+                    <li><label><input type="checkbox"> Asteroid identified and clicked in first image</label></li>
+                    <li><label><input type="checkbox"> Asteroid identified and clicked in last image</label></li>
+                    <li><label><input type="checkbox"> Motion vector appears reasonable</label></li>
+                    <li><label><input type="checkbox"> Session name entered (descriptive)</label></li>
+                    <li><label><input type="checkbox"> Object number/name matches MPC database</label></li>
+                    <li><label><input type="checkbox"> Filter correctly specified</label></li>
+                    <li><label><input type="checkbox"> Observer code entered (if applicable)</label></li>
+                    <li><label><input type="checkbox"> HJD time format selected</label></li>
+                </ul>
 
-    <h3>12.4 Comparison Star Phase</h3>
-    <ul class="interactive-list">
-        <li><label><input type="checkbox"> 3–5 comp stars selected</label></li>
-        <li><label><input type="checkbox"> All comp stars non-saturated</label></li>
-        <li><label><input type="checkbox"> Comp stars similar brightness to asteroid</label></li>
-        <li><label><input type="checkbox"> Comp stars checked against VSX (no known variables)</label></li>
-        <li><label><input type="checkbox"> Comp stars spatially distributed</label></li>
-        <li><label><input type="checkbox"> Comp stars not in asteroid's path</label></li>
-        <li><label><input type="checkbox"> Catalog magnitudes entered (if calibrated photometry desired)</label></li>
-    </ul>
+                <h3>12.4 Comparison Star Phase</h3>
+                <ul class="interactive-list">
+                    <li><label><input type="checkbox"> 3–5 comp stars selected</label></li>
+                    <li><label><input type="checkbox"> All comp stars non-saturated</label></li>
+                    <li><label><input type="checkbox"> Comp stars similar brightness to asteroid</label></li>
+                    <li><label><input type="checkbox"> Comp stars checked against VSX (no known variables)</label></li>
+                    <li><label><input type="checkbox"> Comp stars spatially distributed</label></li>
+                    <li><label><input type="checkbox"> Comp stars not in asteroid's path</label></li>
+                    <li><label><input type="checkbox"> Catalog magnitudes entered (if calibrated photometry desired)</label></li>
+                </ul>
 
-    <h3>12.5 Measurement Phase</h3>
-    <ul class="interactive-list">
-        <li><label><input type="checkbox"> Measurement started</label></li>
-        <li><label><input type="checkbox"> Asteroid tracking verified visually</label></li>
-        <li><label><input type="checkbox"> No error messages during processing</label></li>
-        <li><label><input type="checkbox"> Measurement completed successfully</label></li>
-        <li><label><input type="checkbox"> Session saved to database</label></li>
-    </ul>
+                <h3>12.5 Measurement Phase</h3>
+                <ul class="interactive-list">
+                    <li><label><input type="checkbox"> Measurement started</label></li>
+                    <li><label><input type="checkbox"> Asteroid tracking verified visually</label></li>
+                    <li><label><input type="checkbox"> No error messages during processing</label></li>
+                    <li><label><input type="checkbox"> Measurement completed successfully</label></li>
+                    <li><label><input type="checkbox"> Session saved to database</label></li>
+                </ul>
 
-    <h3>12.6 Analysis Phase</h3>
-    <ul class="interactive-list">
-        <li><label><input type="checkbox"> Session loaded in Lightcurve Analysis</label></li>
-        <li><label><input type="checkbox"> Coarse period search completed (2–20 hr range)</label></li>
-        <li><label><input type="checkbox"> Candidate period(s) identified</label></li>
-        <li><label><input type="checkbox"> Fine period search performed</label></li>
-        <li><label><input type="checkbox"> Optimal Fourier order determined (typically 2–4)</label></li>
-        <li><label><input type="checkbox"> Phased lightcurve inspected for quality</label></li>
-        <li><label><input type="checkbox"> Double-peaked structure observed (typical)</label></li>
-        <li><label><input type="checkbox"> Amplitude in reasonable range (0.1–1.0 mag)</label></li>
-        <li><label><input type="checkbox"> Aliasing checked (period not near 24h, 12h, etc.)</label></li>
-        <li><label><input type="checkbox"> Data scatter consistent with error bars</label></li>
-    </ul>
+                <h3>12.6 Analysis Phase</h3>
+                <ul class="interactive-list">
+                    <li><label><input type="checkbox"> Session loaded in Lightcurve Analysis</label></li>
+                    <li><label><input type="checkbox"> Coarse period search completed (2–20 hr range)</label></li>
+                    <li><label><input type="checkbox"> Candidate period(s) identified</label></li>
+                    <li><label><input type="checkbox"> Fine period search performed</label></li>
+                    <li><label><input type="checkbox"> Optimal Fourier order determined (typically 2–4)</label></li>
+                    <li><label><input type="checkbox"> Phased lightcurve inspected for quality</label></li>
+                    <li><label><input type="checkbox"> Double-peaked structure observed (typical)</label></li>
+                    <li><label><input type="checkbox"> Amplitude in reasonable range (0.1–1.0 mag)</label></li>
+                    <li><label><input type="checkbox"> Aliasing checked (period not near 24h, 12h, etc.)</label></li>
+                    <li><label><input type="checkbox"> Data scatter consistent with error bars</label></li>
+                </ul>
 
-    <h3>12.7 Export & Reporting Phase</h3>
-    <ul class="interactive-list">
-        <li><label><input type="checkbox"> Lightcurve plot exported (PNG/PDF)</label></li>
-        <li><label><input type="checkbox"> Period spectrum saved</label></li>
-        <li><label><input type="checkbox"> Data table exported (CSV/TXT)</label></li>
-        <li><label><input type="checkbox"> ALCDEF file generated</label></li>
-        <li><label><input type="checkbox"> ALCDEF metadata verified complete</label></li>
-        <li><label><input type="checkbox"> Period and uncertainty documented</label></li>
-        <li><label><input type="checkbox"> Amplitude documented</label></li>
-        <li><label><input type="checkbox"> Publication checklist items prepared</label></li>
-    </ul>
-</div>
-</section>
+                <h3>12.7 Export & Reporting Phase</h3>
+                <ul class="interactive-list">
+                    <li><label><input type="checkbox"> Lightcurve plot exported (PNG/PDF)</label></li>
+                    <li><label><input type="checkbox"> Period spectrum saved</label></li>
+                    <li><label><input type="checkbox"> Data table exported (CSV/TXT)</label></li>
+                    <li><label><input type="checkbox"> ALCDEF file generated</label></li>
+                    <li><label><input type="checkbox"> ALCDEF metadata verified complete</label></li>
+                    <li><label><input type="checkbox"> Period and uncertainty documented</label></li>
+                    <li><label><input type="checkbox"> Amplitude documented</label></li>
+                    <li><label><input type="checkbox"> Publication checklist items prepared</label></li>
+                </ul>
+            </div>
+        </section>
 
         <section id="resources">
             <h2>13. Additional Resources</h2>
@@ -1388,32 +1405,26 @@
             <p style="margin-top: 10px;">Community-created guide • Not affiliated with MPO Software • Last updated February 2, 2026</p>
             <p style="margin-top: 10px;"><em>Clear skies!</em></p>
         </footer>
-    </div> <script>
+    </div>
+
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Find all checkboxes inside interactive lists
             const checkboxes = document.querySelectorAll('.interactive-list input[type="checkbox"]');
-            
+
             checkboxes.forEach((box, index) => {
-                // 1. Create a unique ID for each box based on its order in the guide
                 const storageId = 'mpo_guide_checkbox_' + index;
-                
-                // 2. Load saved state from browser memory
                 const savedState = localStorage.getItem(storageId);
                 if (savedState === 'true') {
                     box.checked = true;
                     box.closest('li').style.textDecoration = 'line-through';
-                    box.closest('li').style.opacity = '0.5';
+                    box.closest('li').style.opacity = '0.7';
                 }
-                
-                // 3. Listen for clicks
+
                 box.addEventListener('change', () => {
-                    // Save the new state (true/false)
                     localStorage.setItem(storageId, box.checked);
-                    
-                    // Toggle visual style
                     if (box.checked) {
                         box.closest('li').style.textDecoration = 'line-through';
-                        box.closest('li').style.opacity = '0.5';
+                        box.closest('li').style.opacity = '0.7';
                     } else {
                         box.closest('li').style.textDecoration = 'none';
                         box.closest('li').style.opacity = '1';
