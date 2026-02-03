@@ -1254,242 +1254,12 @@
             </ul>
         </section>
 
-        <section id="glossary">
-            <h2>11. Glossary</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Term</th>
-                        <th>Definition</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>ADU</strong></td>
-                        <td>Analog-to-Digital Unit. The raw count value from a CCD/CMOS sensor. Related to photon flux by the camera gain.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Aliasing</strong></td>
-                        <td>False periods introduced by the regular gaps in observing cadence (e.g., daily aliases from nightly observations). Can mimic or obscure the true rotation period of the asteroid.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ALCDEF</strong></td>
-                        <td>Asteroid Lightcurve Data Exchange Format. Standard format for submitting asteroid photometry to the Minor Planet Center.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Amplitude</strong></td>
-                        <td>The difference between the maximum and minimum brightness of an asteroid’s lightcurve, related to its shape and viewing geometry.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Apparition</strong></td>
-                        <td>A period during which an asteroid is observable from Earth, typically lasting several months.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Aperture Photometry</strong></td>
-                        <td>A technique for measuring the brightness of a star or asteroid by summing the pixel values within a defined circular region (aperture) around the object.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Aperture Tool</strong></td>
-                        <td>An interactive tool in MPO Canopus for visually adjusting and verifying the photometric aperture, gap, and sky annulus settings on an image. Helps ensure the aperture captures all stellar flux without contamination.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Asteroid Wizard</strong></td>
-                        <td>A step-by-step guided interface in MPO Canopus for loading images, configuring apertures, selecting targets/comparison stars, and performing photometry. Replaces the older manual workflow in previous versions.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Bias/Dark/Flat Frames</strong></td>
-                        <td>
-                            <strong>Bias Frame:</strong> Zero-second exposure to measure electronic offset.<br>
-                            <strong>Dark Frame:</strong> Exposure with no light to measure thermal noise.<br>
-                            <strong>Flat Frame:</strong> Exposure of a uniformly illuminated field to correct pixel sensitivity.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>Blink Tool</strong></td>
-                        <td>A feature in MPO Canopus (and other astronomy software) that rapidly cycles through a sequence of images, creating an animation effect. Used to identify moving objects (e.g., asteroids) against the static background of stars.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>CBET</strong></td>
-                        <td>Central Bureau Electronic Telegram. A service of the International Astronomical Union for rapidly disseminating astronomical discoveries (e.g., new asteroid rotation periods).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Check Star</strong></td>
-                        <td>A stable comparison star used to monitor the constancy of the comparison star ensemble and validate photometric accuracy.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Comparison Star</strong></td>
-                        <td>A non-variable star in the same field of view as the target asteroid, used as a reference for differential photometry.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Convex Inversion</strong></td>
-                        <td>A mathematical method for reconstructing the 3D shape of an asteroid from its lightcurves observed at multiple viewing geometries. Assumes the asteroid is a convex body.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cycle Time</strong></td>
-                        <td>The total time between the start of one exposure and the start of the next, including exposure time, readout time, and any delays. Critical for calculating the true temporal resolution of observations.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>DAMIT</strong></td>
-                        <td>Database of Asteroid Models from Inversion Techniques. A collection of 3D asteroid shape models derived from lightcurve inversion.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Differential Extinction</strong></td>
-                        <td>The wavelength-dependent dimming of starlight due to Earth’s atmosphere, which affects stars at different altitudes differently. Can introduce systematic errors in photometry if comparison stars and target are at different airmasses.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Differential Photometry</strong></td>
-                        <td>Measuring an object's brightness relative to comparison stars rather than to an absolute calibration standard.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Double-Peaked Lightcurve</strong></td>
-                        <td>A lightcurve with two maxima and two minima per rotation, typical of elongated asteroids viewed equator-on.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>FALC</strong></td>
-                        <td>Fourier Analysis of Light Curves. Algorithm used by Canopus to determine rotation periods via Fourier fitting.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>FITS</strong></td>
-                        <td>Flexible Image Transport System. The standard digital file format used in astronomy to store images, data, and metadata (headers).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Fourier Order</strong></td>
-                        <td>The number of terms (harmonics) used in the Fourier series to fit the lightcurve. Higher orders can fit more complex shapes but risk overfitting.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Fourier Series</strong></td>
-                        <td>A mathematical representation of a periodic function (e.g., a lightcurve) as a sum of sine and cosine waves. Used by FALC to model the asteroid’s brightness variations and determine its rotation period.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>FWHM</strong></td>
-                        <td>Full Width at Half Maximum. The diameter of a star’s image at 50% of its peak intensity, measured in pixels. Used to determine the optimal aperture size for photometry.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Heliocentric Correction</strong></td>
-                        <td>The adjustment of observation times to account for the light-travel time from the asteroid to the Sun’s center (HJD). Removes the effects of Earth’s orbital motion on timing measurements, ensuring accurate period determination.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>HJD</strong></td>
-                        <td>Heliocentric Julian Date. The Julian Date corrected for light-travel time to the Sun’s center, removing Earth's orbital motion effects.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Instrumental Magnitude</strong></td>
-                        <td>The apparent magnitude of an object measured in a specific instrumental setup (telescope + camera + filter), without absolute calibration.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>JD</strong></td>
-                        <td>Julian Date. A continuous count of days since January 1, 4713 BCE, used as a standard timekeeping system in astronomy.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>KOALA</strong></td>
-                        <td>Knitted Occultation, Adaptive-optics, and Lightcurve Analysis. A tool for combining occultation, adaptive optics, and lightcurve data to model asteroid shapes.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>LCDB</strong></td>
-                        <td>Lightcurve Database. A repository of asteroid lightcurve data and derived properties (e.g., rotation periods, amplitudes) maintained by the Minor Planet Center.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Lightcurve</strong></td>
-                        <td>A plot of an object's brightness versus time (or rotation phase), used to determine rotation periods and infer shape.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Lightcurve Analysis Window</strong></td>
-                        <td>The interface in MPO Canopus for loading, phasing, and analyzing photometric data.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>MPC</strong></td>
-                        <td>Minor Planet Center. The official organization responsible for collecting, verifying, and disseminating data on asteroids, comets, and other minor planets.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Motion Vector</strong></td>
-                        <td>The calculated direction and speed of an asteroid’s movement across the image sequence. Used by MPO Canopus to predict the asteroid’s position in subsequent frames.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Mutual Events</strong></td>
-                        <td>Eclipses or occultations between components of a binary asteroid system, causing dips or variations in the lightcurve. Can complicate period analysis.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Overfitting</strong></td>
-                        <td>Fitting a model (e.g., high-order Fourier series) too closely to the noise in the data, rather than the true signal. Can lead to misleading or unrealistic lightcurve shapes.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Phase Coverage</strong></td>
-                        <td>The fraction of an asteroid’s rotation period observed during a session. Full phase coverage (0.0–1.0) is ideal for accurate period determination.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Phased Lightcurve</strong></td>
-                        <td>A lightcurve that has been folded (wrapped) onto a single rotation period (phase 0.0–1.0), revealing the object’s brightness variation as a function of rotation phase.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Plate Solving</strong></td>
-                        <td>The process of matching star patterns in an image to a star catalog to determine the exact celestial coordinates (RA/Dec) of the field of view. Enables automatic star identification and telescope pointing.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Print/Export</strong></td>
-                        <td>A menu option in MPO Canopus for saving lightcurve plots, period spectra, and data tables in various formats (e.g., PNG, PDF, CSV, TXT). Used to generate publication-ready outputs.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Radial Profile Plot</strong></td>
-                        <td>A graph in MPO Canopus showing the intensity of a star’s light as a function of distance from its center. Used to measure FWHM and verify aperture settings.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>RMS</strong></td>
-                        <td>Root Mean Square. A statistical measure of the scatter of data points around a fitted curve. Lower RMS indicates a better fit.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Session</strong></td>
-                        <td>A collection of images, settings, and measurements in MPO Canopus representing a single observing run or analysis.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Session Manager</strong></td>
-                        <td>A tool in MPO Canopus for organizing, loading, and managing photometric sessions. Used to select sessions for analysis, review metadata, and export data.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Signal-to-Noise Ratio (SNR)</strong></td>
-                        <td>The ratio of the detected signal (e.g., light from a star) to the background noise (e.g., sky glow, sensor noise). Higher SNR yields more precise photometry.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Standard Magnitude</strong></td>
-                        <td>The apparent magnitude of an object calibrated to a standard photometric system (e.g., Johnson-Cousins V, R, I bands).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Star Profile Tool</strong></td>
-                        <td>A tool in MPO Canopus for analyzing the intensity distribution of a star’s image. Helps measure FWHM and assess star shape/quality.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tumbling</strong></td>
-                        <td>Rotation of an asteroid about an axis other than its principal axis (i.e., not the axis of greatest or least inertia). Results in complex, non-periodic lightcurves.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>VSX</strong></td>
-                        <td>Variable Star Index. An online database of known variable stars, used to check comparison stars for variability.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>WCS</strong></td>
-                        <td>World Coordinate System. FITS header information that maps pixel coordinates to celestial coordinates (RA/Dec), enabling automatic star identification and coordinate transformations.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>WCS Headers</strong></td>
-                        <td>World Coordinate System headers in FITS files that map pixel coordinates to celestial coordinates (RA/Dec), enabling automatic star identification and coordinate transformations.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Zero Point Shift</strong></td>
-                        <td>A systematic offset in magnitude between datasets (e.g., from different nights), often caused by changes in atmospheric transparency or instrumentation.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Zero Point Shift Tool</strong></td>
-                        <td>A tool in MPO Canopus for aligning the magnitude zero points of multiple photometric sessions. Corrects systematic offsets caused by differences in atmospheric conditions, instrumentation, or comparison stars between nights.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
         <section id="checklist">
-            <h2>12. Quick Reference Checklist</h2>
+            <h2>11. Quick Reference Checklist</h2>
             <p>Use this checklist to ensure you've completed all critical steps:</p>
 
             <div class="checklist">
-                <h3>12.1 Pre-Processing Phase</h3>
+                <h3>11.1 Pre-Processing Phase</h3>
                 <ul class="interactive-list">
                     <li><label><input type="checkbox"> Images calibrated (bias/dark/flat applied)</label></li>
                     <li><label><input type="checkbox"> FWHM measured (all images within 20%)</label></li>
@@ -1499,7 +1269,7 @@
                     <li><label><input type="checkbox"> Files organized in dedicated folder</label></li>
                 </ul>
 
-                <h3>12.2 Software Setup Phase</h3>
+                <h3>11.2 Software Setup Phase</h3>
                 <ul class="interactive-list">
                     <li><label><input type="checkbox"> Correct equipment profile selected</label></li>
                     <li><label><input type="checkbox"> Images loaded successfully</label></li>
@@ -1508,7 +1278,7 @@
                     <li><label><input type="checkbox"> Aperture visually verified on test star</label></li>
                 </ul>
 
-                <h3>12.3 Target Selection Phase</h3>
+                <h3>11.3 Target Selection Phase</h3>
                 <ul class="interactive-list">
                     <li><label><input type="checkbox"> Asteroid identified and clicked in first image</label></li>
                     <li><label><input type="checkbox"> Asteroid identified and clicked in last image</label></li>
@@ -1520,7 +1290,7 @@
                     <li><label><input type="checkbox"> HJD time format selected</label></li>
                 </ul>
 
-                <h3>12.4 Comparison Star Phase</h3>
+                <h3>11.4 Comparison Star Phase</h3>
                 <ul class="interactive-list">
                     <li><label><input type="checkbox"> 3–5 comp stars selected</label></li>
                     <li><label><input type="checkbox"> All comp stars non-saturated</label></li>
@@ -1531,7 +1301,7 @@
                     <li><label><input type="checkbox"> Catalog magnitudes entered (if calibrated photometry desired)</label></li>
                 </ul>
 
-                <h3>12.5 Measurement Phase</h3>
+                <h3>11.5 Measurement Phase</h3>
                 <ul class="interactive-list">
                     <li><label><input type="checkbox"> Measurement started</label></li>
                     <li><label><input type="checkbox"> Asteroid tracking verified visually</label></li>
@@ -1540,7 +1310,7 @@
                     <li><label><input type="checkbox"> Session saved to database</label></li>
                 </ul>
 
-                <h3>12.6 Analysis Phase</h3>
+                <h3>11.6 Analysis Phase</h3>
                 <ul class="interactive-list">
                     <li><label><input type="checkbox"> Session loaded in Lightcurve Analysis</label></li>
                     <li><label><input type="checkbox"> Coarse period search completed (2–20 hr range)</label></li>
@@ -1554,7 +1324,7 @@
                     <li><label><input type="checkbox"> Data scatter consistent with error bars</label></li>
                 </ul>
 
-                <h3>12.7 Export & Reporting Phase</h3>
+                <h3>11.7 Export & Reporting Phase</h3>
                 <ul class="interactive-list">
                     <li><label><input type="checkbox"> Lightcurve plot exported (PNG/PDF)</label></li>
                     <li><label><input type="checkbox"> Period spectrum saved</label></li>
@@ -1569,16 +1339,16 @@
         </section>
 
         <section id="resources">
-            <h2>13. Additional Resources</h2>
+            <h2>12. Additional Resources</h2>
 
-            <h3>13.1 Software & Tools</h3>
+            <h3>12.1 Software & Tools</h3>
             <ul>
                 <li><strong>MPO Canopus:</strong> <a href="https://minorplanetobserver.com/">https://minorplanetobserver.com/</a></li>
                 <li><strong>DS9 Image Viewer:</strong> <a href="https://sites.google.com/cfa.harvard.edu/saoimageds9">https://sites.google.com/cfa.harvard.edu/saoimageds9</a></li>
                 <li><strong>Astrometrica:</strong> <a href="http://www.astrometrica.at/">http://www.astrometrica.at/</a> (plate solving)</li>
             </ul>
 
-            <h3>13.2 Catalogs & Databases</h3>
+            <h3>12.2 Catalogs & Databases</h3>
             <ul>
                 <li><strong>Minor Planet Center:</strong> <a href="https://minorplanetcenter.net/">https://minorplanetcenter.net/</a></li>
                 <li><strong>VSX (Variable Star Index):</strong> <a href="https://www.aavso.org/vsx/">https://www.aavso.org/vsx/</a></li>
@@ -1587,14 +1357,14 @@
                 <li><strong>Gaia Archive:</strong> <a href="https://gea.esac.esa.int/archive/">https://gea.esac.esa.int/archive/</a></li>
             </ul>
 
-            <h3>13.3 Educational Materials</h3>
+            <h3>12.3 Educational Materials</h3>
             <ul>
                 <li><strong>ALCDEF Standard:</strong> <a href="https://alcdef.org/alcdef-standard">https://alcdef.org/alcdef-standard</a></li>
                 <li><strong>MPO Canopus Manual:</strong> Included with software installation</li>
                 <li><strong>Asteroid Photometry Handbook:</strong> Available from MPO website</li>
             </ul>
 
-            <h3>13.4 Scientific Background</h3>
+            <h3>12.4 Scientific Background</h3>
             <ul>
                 <li>Harris et al., "Photoelectric Observations of Asteroids," <em>Icarus</em> (various)</li>
                 <li>Pravec et al., "Asteroid Rotations," chapter in <em>Asteroids IV</em> (2015)</li>
