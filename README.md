@@ -51,5 +51,5 @@ This guide is released under [CC0 1.0 Universal (Public Domain)](LICENSE) - free
 
 ---
 
-*Last updated: February 2, 2026*  
+*Last updated: February 3, 2026*  
 *Clear skies!*
